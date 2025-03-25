@@ -10,4 +10,14 @@
 # define ERR_CUB "The file is not a .cub\n"
 # define ERR_FILE "This is not a file\n"
 
+typedef struct s_element
+{
+    int no;
+    int so;
+    int we;
+    int ea;
+    int f;
+    int c;
+}	                    t_element;
+
 #endif

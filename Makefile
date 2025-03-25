@@ -3,7 +3,8 @@ NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = cub3d.c check_map.c \
+SRCS = cub3d.c check_element.c \
+		utils.c init_struct.c \
        getnextline/get_next_line.c \
        getnextline/get_next_line_utils.c
 

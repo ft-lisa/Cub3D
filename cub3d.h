@@ -9,9 +9,16 @@
 
                 /* check_map */
 
-char* pass_space(char* line);
-int file_browsing(int fd);
+int file_browsing(int fd, t_element* map);
 int	check_cub(char *str);
 int check_map(char* file);
+
+                /* init_struct*/
+
+t_element init_element(void);
+
+                /* utils */
+
+char* pass_space(char* line);
 
 #endif
