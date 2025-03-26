@@ -1,4 +1,3 @@
-#include "err_mess.h"
 #include "cub3d.h"
 
 t_element init_element(void)

@@ -3,11 +3,11 @@ NAME = cub3d
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = cub3d.c check_element.c \
-	utils.c init_struct.c \
-	getnextline/get_next_line.c \
-	getnextline/get_next_line_utils.c
+# Trouver tous les fichiers source (.c) dans tous les dossiers
+SRC_DIRS = . checker getnextline
+SRCS = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 
+# Transformer les .c en .o dans trash/
 TRASH_DIR = trash
 OBJS = $(SRCS:%.c=$(TRASH_DIR)/%.o)
 
@@ -15,14 +15,16 @@ RM = rm -rf
 
 all: $(NAME)
 
+# Créer le dossier trash et tous les sous-dossiers nécessaires
 $(TRASH_DIR):
-	mkdir -p $(TRASH_DIR) $(dir $(OBJS)) # Crée tous les sous-dossiers nécessaires
+	mkdir -p $(TRASH_DIR) $(sort $(dir $(OBJS)))
 
 $(NAME): $(TRASH_DIR) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(TRASH_DIR)/%.o: %.c cub3d.h err_mess.h | $(TRASH_DIR)
-	mkdir -p $(dir $@) # Assure que le dossier de destination existe
+# Compilation en gardant la structure des sous-dossiers dans trash/
+$(TRASH_DIR)/%.o: %.c | $(TRASH_DIR)
+	mkdir -p $(dir $@)  # Assure que le sous-dossier existe
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

@@ -1,4 +1,3 @@
-#include "err_mess.h"
 #include "cub3d.h"
 
 int     main(int argc, char** argv)
