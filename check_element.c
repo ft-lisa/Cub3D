@@ -29,13 +29,11 @@ F     220,100,0
 F 220,100,51,54,
 */
 
-int check_num_color(char* line)
+int check_num_color(char* line, int comma)
 {
         int num;
-        int comma;
         int cont;
 
-        comma = 0;
         while(*line != '\0')
         {
                 num = 0;
@@ -46,15 +44,15 @@ int check_num_color(char* line)
                         num = num * 10 + *line - 48;
                         line++;
                 }
-                printf("%d, %d\n", num, cont);
                 if (num > 255 || cont == 0)
                         return(printf(ERR_COLOR), ERROR);
-                if (*line != ',' && *line != '\n')
+                if (*line == '\n' || *line == '\0')
+                        break;
+                if (*line != ',')
                         return(printf(ERR_COLOR), ERROR);
                 comma++;
                 line++;
         }
-        printf("%d\n", comma);
         if (comma == 2)
                 return(GOOD);
         return(printf(ERR_COLOR), ERROR);
@@ -70,7 +68,7 @@ int color(char* line, t_element* map)
                 return(GOOD);
         line++;
         line = pass_space(line);
-        return(check_num_color(line));
+        return(check_num_color(line, 0));
         
 }
 
