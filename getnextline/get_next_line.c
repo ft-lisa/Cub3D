@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:45:40 by lismarti          #+#    #+#             */
-/*   Updated: 2025/01/16 15:17:23 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:12:51 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_next_line(int fd)
 		count = read(fd, buffer, BUFFER_SIZE);
 		if (count <= 0)
 			break ;
-		src = ft_strjoin(src, buffer, count);
+		src = ff_strjoin(src, buffer, count);
 		if (!src)
 			return (free(buffer), freealt(&src));
 	}

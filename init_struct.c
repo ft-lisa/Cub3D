@@ -12,3 +12,19 @@ t_element init_element(void)
     element.we = 0;
     return(element);
 }
+
+t_data init_list(void)
+{
+    t_data texture;
+
+    texture.map = NULL;
+    texture.north = NULL;
+    texture.south = NULL;
+    texture.east = NULL;
+    texture.west = NULL;
+    texture.mlx = NULL;
+    texture.win = NULL;
+    texture.x = 0;
+    texture.y = 0;
+    return(texture);
+}

@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 11:22:35 by lismarti          #+#    #+#             */
-/*   Updated: 2024/12/02 17:22:57 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/03/26 11:15:21 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,6 @@ void	*ft_replace(char *src)
 	return (new[k] = 0, free(src), new);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2, int count)
-{
-	char	*join;
-	int		i;
-	int		t;
-
-	i = 0;
-	t = 0;
-	join = malloc(ft_strlen(s1) + count * sizeof(char) + 1);
-	if (join == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		join[i] = s1[i];
-		i++;
-	}
-	while (t < count)
-	{
-		join[i] = s2[t];
-		t++;
-		i++;
-	}
-	join[i] = '\0';
-	free((void *)s1);
-	return (join);
-}
-
 char	*ft_strdup(const char *source)
 {
 	char	*dest;
@@ -120,4 +93,31 @@ char	*ft_strdup(const char *source)
 	i++;
 	dest[i] = '\0';
 	return (dest);
+}
+
+char	*ff_strjoin(char const *s1, char const *s2, int count)
+{
+	char	*join;
+	int		i;
+	int		t;
+
+	i = 0;
+	t = 0;
+	join = malloc(ft_strlen(s1) + count * sizeof(char) + 1);
+	if (join == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		join[i] = s1[i];
+		i++;
+	}
+	while (t < count)
+	{
+		join[i] = s2[t];
+		t++;
+		i++;
+	}
+	join[i] = '\0';
+	free((void *)s1);
+	return (join);
 }

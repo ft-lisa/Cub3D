@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 # Trouver tous les fichiers source (.c) dans tous les dossiers
 SRC_DIRS = . checker getnextline
