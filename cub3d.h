@@ -25,7 +25,8 @@ typedef struct s_data
 
 int file_browsing(int fd, t_element* map);
 int	check_cub(char *str);
-int check_map(char* file);
+int check_element(char* file);
+void check_map(t_data* info);
 
                 /* check_color_texture */
 
@@ -49,5 +50,7 @@ void fill_map(char* file, t_data* tex);
 char* pass_space(char* line);
 int pass_element(t_element* map);
 char	*ft_strjoin(char const *s1, char const *s2);
+int	len_line(char *map, int i);
+int	where_in_line(char *map, int i);
 
 #endif

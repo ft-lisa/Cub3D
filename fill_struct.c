@@ -7,7 +7,7 @@ void copy_map(int fd, t_data* tex)
         {
                 line = get_next_line(fd);
                 if (line == NULL)
-                        break;
+                        (printf(ERR_CHAR), exit(EXIT_FAILURE));
                 if (line[0] != '\n')
                         break;
                 free(line);
@@ -39,6 +39,8 @@ void fill_map(char* file, t_data* tex)
         while(pass_element(&element) == ERROR)
         {
                 line = get_next_line(fd);
+                // if (line == NULL)
+                //         (printf(ERR_CHAR), exit(EXIT_FAILURE));
                 ori_line = line;
                 if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
                         texture(line, &element);

@@ -49,7 +49,7 @@ int	check_cub(char *str)
 	return (GOOD);
 }
 
-int check_map(char* file)
+int check_element(char* file)
 {
         int fd;
         t_element element;

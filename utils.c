@@ -47,3 +47,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	free((void *)s1);
 	return (join);
 }
+
+int	len_line(char *map, int i)
+{
+	int	k;
+
+	k = 0;
+	while (map[i + k] != '\n' && map[i + k] != '\0')
+		k++;
+	return (k);
+}
+
+int	where_in_line(char *map, int i)
+{
+	int	k;
+
+	k = 0;
+	while (map[i - k] != '\n' && i - k >= 0)
+		k++;
+	return (k);
+}
