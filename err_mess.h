@@ -9,6 +9,7 @@
 # define ERR_ARG "./cub3d [file]\n"
 # define ERR_CUB "The file is not a .cub\n"
 # define ERR_FILE "This is not a file\n"
+# define ERR_COLOR "colors R,G,B range [0,255]\n"
 
 typedef struct s_element
 {
