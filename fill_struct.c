@@ -7,7 +7,7 @@ void copy_map(int fd, t_data* tex)
         {
                 line = get_next_line(fd);
                 if (line == NULL)
-                        (printf(ERR_CHAR), exit(EXIT_FAILURE));
+                        (printf(ERR_CHAR), close(fd), exit(EXIT_FAILURE));
                 if (line[0] != '\n')
                         break;
                 free(line);
