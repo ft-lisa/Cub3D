@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:45:40 by lismarti          #+#    #+#             */
-/*   Updated: 2025/03/26 11:12:51 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:17:20 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ char	*get_next_line(int fd)
 {
 	char		*buffer;
 	static char	*src;
-	char		*line;
 	int			count;
 
 	count = 1;
 	buffer = malloc(BUFFER_SIZE);
+	if (fd == -1)
+		freealt(&src);
 	if (!buffer)
 		return (NULL);
 	if (!src)
@@ -70,9 +71,8 @@ char	*get_next_line(int fd)
 	}
 	if (count < 0 || (!src[0] && count == 0))
 		return (free(buffer), freealt(&src));
-	line = ft_strdup(src);
 	src = ft_replace(src);
-	return (free(buffer), line);
+	return (free(buffer), ft_strdup(src));
 }
 
 // 7 max en -

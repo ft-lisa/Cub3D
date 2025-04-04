@@ -41,9 +41,11 @@ int check_num_color(char* line, int comma)
                 {
                         cont = 1;
                         num = num * 10 + *line - 48;
+                        if (num > 255)
+                                return(printf(ERR_COLOR), ERROR);
                         line++;
                 }
-                if (num > 255 || cont == 0)
+                if (cont == 0)
                         return(printf(ERR_COLOR), ERROR);
                 if (*line == '\n' || *line == '\0')
                         break;

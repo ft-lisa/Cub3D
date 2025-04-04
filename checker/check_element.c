@@ -19,20 +19,18 @@ int file_browsing(int fd, t_element* map)
         char* ori_line;
         
         line = get_next_line(fd);
-        ori_line = line;
         while (line != NULL)
         {
-                
+                ori_line = line;
                 line = pass_space(line);
                 if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
                         texture(line, map);
                 if (*line == 'C' || *line == 'F')
                         if (color(line, map) == ERROR)
-                                return(ERROR);
+                                return(free(ori_line), get_next_line(-1), ERROR);
                 free(ori_line);
                 line = get_next_line(fd);
-                ori_line = line;
-        }        
+        }
         return(check_the_number(map));
 }
 

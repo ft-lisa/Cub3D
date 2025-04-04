@@ -1,9 +1,13 @@
 #include "cub3d.h"
-
+int fill_struct(t_data *texture)
+{
+        
+}
 
 int     main(int argc, char** argv)
-{
+{        
         t_data texture;
+
         if (argc != 2)
                 return(printf(ERR_ARG), EXIT_FAILURE);
         if (check_element(argv[1]) == 0)
@@ -11,4 +15,5 @@ int     main(int argc, char** argv)
         texture = init_list();
         fill_map(argv[1], &texture);
         check_map(&texture);
+        fill_struct(&texture);
 }
