@@ -3,6 +3,7 @@
 
 #include "getnextline/get_next_line.h"
 #include "checker/err_mess.h"
+#include "minilibx-linux/mlx.h"
 
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -17,6 +18,8 @@ typedef struct s_data
 	void	*west;
 	void	*mlx;
 	void	*win;
+	int	color_floor;
+	int	color_ceilling;
 	float		x;
 	float		y;
 }			t_data;
