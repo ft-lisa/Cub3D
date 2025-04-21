@@ -98,7 +98,7 @@ void start_minimap(t_data* texture)
 	int	j;
 
 	i = 0;
-
+	mlx_clear_window(texture->mlx, texture->win);
 	while (texture->game_map[i])
 	{
 		j = 0;
@@ -166,15 +166,13 @@ int update(t_data *data)
 	// Déplacement
 	if (data->w)
 	{
-		data->x += cos(data->x) * 0.1;
-		data->y += sin(data->y) * 0.1;
-		mlx_clear_window(data->mlx, data->win);
+		data->x += cos(data->angle) * 0.001;
+		data->y += sin(data->angle) * 0.001;
 	}
 	if (data->s)
 	{
-		data->x -= cos(data->x) * 0.1;
-		data->y -= sin(data->y) * 0.1;
-		mlx_clear_window(data->mlx, data->win);
+		data->x -= cos(data->angle) * 0.001;
+		data->y -= sin(data->angle) * 0.001;
 	}
 	// mlx_clear_window(data->mlx, data->win);
 	start_minimap(data);
