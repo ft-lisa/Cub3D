@@ -6,7 +6,7 @@
 /*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:20:39 by jaqin             #+#    #+#             */
-/*   Updated: 2025/04/21 13:01:00 by jaqin            ###   ########.fr       */
+/*   Updated: 2025/04/21 13:28:23 by jaqin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = set_line(str);
 	str = set_static(str);
-	printf("get: %s", line);
 	return (line);
 }
 /* 

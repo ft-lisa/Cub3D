@@ -44,7 +44,7 @@
 NAME = cub3d
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 MLX_DIR = ./minilibx-linux
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
@@ -54,10 +54,12 @@ INCLUDES = -I. -I$(MLX_DIR) -I./getnextline -I./checker
 SRCS = \
 	cub3d.c \
 	fill_struct.c \
+	fill_struct2.c \
 	init_struct.c \
 	utils.c \
 	getnextline/get_next_line.c \
 	getnextline/get_next_line_utils.c \
+	ft_split.c \
 	checker/check_color_texture.c \
 	checker/check_element.c \
 	checker/check_map.c

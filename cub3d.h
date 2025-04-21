@@ -8,15 +8,28 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <math.h>
 
 # define ANG_NORTH 90
 # define ANG_SOUTH 270
 # define ANG_EAST 0
 # define ANG_WEST 180
+# define CUB_SIZE 32
+# define W		119
+# define A		97
+# define S		115
+# define D		100
+# define UP		65362
+# define DOWN	65364
+# define LEFT	65361
+# define RIGHT	65363
+# define ESC	65307
 
 typedef struct s_data
 {
 	char	*map;
+	char	**game_map;
 	void	*north;
 	void	*south;
 	void	*east;
@@ -28,6 +41,14 @@ typedef struct s_data
 	float		x;
 	float		y;
 	int		angle;
+
+	// keys
+	int w;
+	int s;
+	int a;
+	int d;
+	int left;
+	int right;
 }			t_data;
 
                 /* check_map */
@@ -53,7 +74,19 @@ t_data init_list(void);
 
 void copy_map(int fd, t_data* tex);               
 void fill_map(char* file, t_data* tex);
-            
+void fill_texture(char* line, t_data* texture);
+void fill_color(char* line, t_data* texture);
+void map_to_game_map(t_data* texture);
+
+				/* fill_struct2 */
+
+void fill_mlx(t_data* texture);
+void fill_angle(t_data* texture, char lettre);
+void fill_pos(t_data *texture);
+int check_all_fill(t_data* texture);
+void fill_struct(t_data *texture, char* file);
+
+
                 /* utils */
 
 char* pass_space(char* line);
@@ -61,5 +94,6 @@ int pass_element(t_element* map);
 char	*ft_strjoin(char const *s1, char const *s2);
 int	len_line(char *map, int i);
 int	where_in_line(char *map, int i);
+char	**ft_split(char const *s, char c);
 
 #endif

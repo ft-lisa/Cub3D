@@ -24,7 +24,16 @@ t_data init_list(void)
     texture.west = NULL;
     texture.mlx = NULL;
     texture.win = NULL;
+	texture.color_ceilling = -1;
+	texture.color_floor = -1;
     texture.x = 0;
     texture.y = 0;
+	//
+	texture.w = 0;
+	texture.s = 0;
+	texture.a = 0;
+	texture.d = 0;
+	texture.left = 0;
+	texture.right = 0;
     return(texture);
 }
