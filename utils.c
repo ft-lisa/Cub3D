@@ -17,6 +17,26 @@ int pass_element(t_element* map)
         return(ERROR);               
 }
 
+char	*ft_strdup(const char *s)
+{
+	size_t	slen;
+	char	*dup;
+	int		i;
+
+	slen = ft_strlen(s) + 1;
+	i = 0;
+	dup = malloc(sizeof(char) * slen);
+	if (!dup)
+		return (NULL);
+	while (s[i])
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*join;

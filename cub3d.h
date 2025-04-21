@@ -1,13 +1,13 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "getnextline/get_next_line.h"
-#include "checker/err_mess.h"
-#include "minilibx-linux/mlx.h"
+# include "getnextline/get_next_line.h"
+# include "checker/err_mess.h"
+# include "minilibx-linux/mlx.h"
 
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
 
 # define ANG_NORTH 90
 # define ANG_SOUTH 270
@@ -23,8 +23,8 @@ typedef struct s_data
 	void	*west;
 	void	*mlx;
 	void	*win;
-	int	color_floor;
-	int	color_ceilling;
+	int		color_floor;
+	int		color_ceilling;
 	float		x;
 	float		y;
 	int		angle;

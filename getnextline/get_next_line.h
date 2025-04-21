@@ -3,29 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 17:23:22 by lismarti          #+#    #+#             */
-/*   Updated: 2025/04/21 11:51:02 by lismarti         ###   ########.fr       */
+/*   Created: 2024/11/25 14:41:26 by jaqin             #+#    #+#             */
+/*   Updated: 2025/04/21 13:00:39 by jaqin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <stdarg.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "../cub3d.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 50
+#  define BUFFER_SIZE 42
 # endif
 
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+
 char	*get_next_line(int fd);
-int		check(char *src);
-size_t	ft_strlen(const char *str);
-void	*ft_replace(char *src);
-char	*ft_strdup(const char *source);
-char	*ff_strjoin(char const *s1, char const *s2,int count);
+char	*ft_joinnfree(char *buffer, char *tmp);
+char	*fill_str(int fd, char *str);
+char	*set_line(char *str);
+char	*set_static(char *str);
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t siz);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
 
 #endif

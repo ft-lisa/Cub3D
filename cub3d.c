@@ -97,7 +97,7 @@ void fill_pos(t_data *texture)
         int len_line;
 
         i = 0;
-        len_line = ft_strlen(texture->map[]);
+        len_line = ft_strlen(texture->map);
 
         while(texture->map[i])
         {
