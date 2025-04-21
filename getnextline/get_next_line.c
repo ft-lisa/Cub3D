@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:45:40 by lismarti          #+#    #+#             */
-/*   Updated: 2025/04/03 16:17:20 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/04/21 11:56:15 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_next_line(int fd)
 // {
 // 	int fd;
 // 	char *str;
-// 	fd =  -1;//open ("read_error.txt", O_RDONLY);
+// 	fd =  open ("../map.cub", O_RDONLY);
 // 	// if (fd == -1) {
 //     //     perror("Erreur lors de l'ouverture du fichier");
 // 	// }

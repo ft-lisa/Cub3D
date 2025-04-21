@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:23:22 by lismarti          #+#    #+#             */
-/*   Updated: 2025/03/26 11:12:20 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/04/21 11:51:02 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../cub3d.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 50
 # endif
 
 char	*get_next_line(int fd);

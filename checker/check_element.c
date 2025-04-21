@@ -21,6 +21,7 @@ int file_browsing(int fd, t_element* map)
         line = get_next_line(fd);
         while (line != NULL)
         {
+                // printf("line: %s", line);
                 ori_line = line;
                 line = pass_space(line);
                 if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')

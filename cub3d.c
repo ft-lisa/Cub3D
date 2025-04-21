@@ -66,6 +66,8 @@ void fill_color(char* line, t_data* texture)
                 texture->color_ceilling = (red << 16) | (green << 8) | blue;   
 }
 
+/* voir le cas si il y a des espaces derriere est de que il faut prendre e ncompte que toutes les lignes on la meme taille */
+
 void fill_mlx(t_data* texture)
 {
         texture->mlx = mlx_init();
@@ -75,7 +77,46 @@ void fill_mlx(t_data* texture)
                 exit(EXIT_FAILURE);
         }
         texture->win = mlx_new_window(texture->mlx, 1366, 768, "Cub3D");
-        // mettre la position du joueur
+}
+
+void fill_angle(t_data* texture, char lettre)
+{
+        if (lettre == 'N')
+                texture->angle = ANG_NORTH;
+        if (lettre == 'S')
+                texture->angle = ANG_SOUTH;
+        if (lettre == 'W')
+                texture->angle = ANG_WEST;
+        if (lettre == 'E')
+                texture->angle = ANG_EAST;
+}
+
+void fill_pos(t_data *texture)
+{
+        int i;
+        int len_line;
+
+        i = 0;
+        len_line = ft_strlen(texture->map[]);
+
+        while(texture->map[i])
+        {
+                if (texture->map[i] == 'N' || texture->map[i] == 'S' || texture->map[i] == 'E' || texture->map[i] == 'W')
+                {
+                        if (i < len_line)
+                        {
+                                texture->x = i;
+                                texture-> y = 0;
+                        }
+                        else
+                        {
+                                texture->x = i % len_line;
+                                texture->y = i % len_line;
+                        }
+                        fill_angle(texture, texture->map[i]);
+                }
+                i++;
+        }
 }
 
 int check_all_fill(t_data* texture)
@@ -96,6 +137,7 @@ void fill_struct(t_data *texture, char* file)
                 (free(texture->map), exit(EXIT_FAILURE));
         line = get_next_line(fd);
         fill_mlx(texture);
+        fill_pos(texture);
         while(line != NULL)
         {
                 ori_line = line;

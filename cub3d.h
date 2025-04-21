@@ -9,6 +9,11 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+# define ANG_NORTH 90
+# define ANG_SOUTH 270
+# define ANG_EAST 0
+# define ANG_WEST 180
+
 typedef struct s_data
 {
 	char	*map;
@@ -22,6 +27,7 @@ typedef struct s_data
 	int	color_ceilling;
 	float		x;
 	float		y;
+	int		angle;
 }			t_data;
 
                 /* check_map */
