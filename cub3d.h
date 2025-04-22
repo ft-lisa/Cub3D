@@ -37,6 +37,13 @@ typedef struct s_data
 	void	*west;
 	void	*mlx;
 	void	*win;
+
+	void	*img;
+	void	*img_ptr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+
 	int		color_floor;
 	int		color_ceilling;
 	float		x;

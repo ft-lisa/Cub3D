@@ -1,15 +1,45 @@
 #include "cub3d.h"
 
+// void fill_mlx(t_data* texture)
+// {
+//         texture->mlx = mlx_init();
+// 	if (texture->mlx == NULL)
+// 	{
+//                 free(texture->map);
+//                 exit(EXIT_FAILURE);
+//         }
+//         texture->win = mlx_new_window(texture->mlx, 1366, 768, "Cub3D");
+// }
+
 void fill_mlx(t_data* texture)
 {
-        texture->mlx = mlx_init();
+    texture->mlx = mlx_init();
 	if (texture->mlx == NULL)
 	{
-                free(texture->map);
-                exit(EXIT_FAILURE);
-        }
-        texture->win = mlx_new_window(texture->mlx, 1366, 768, "Cub3D");
+		free(texture->map);
+		exit(EXIT_FAILURE);
+	}
+    texture->win = mlx_new_window(texture->mlx, 1366, 768, "Cub3D");
+	if (texture->win == NULL)
+	{
+		free(texture->map);
+		mlx_destroy_display(texture->mlx);
+		free(texture->mlx);
+		exit(EXIT_FAILURE);
+	}
+	texture->img = mlx_new_image(texture->mlx, 1366, 768);
+	if (texture->img == NULL)
+	{
+		free(texture->map);
+		mlx_destroy_window(texture->mlx, texture->win);
+		mlx_destroy_display(texture->mlx);
+		free(texture->mlx);
+		exit(EXIT_FAILURE);
+	}
+	texture->img_ptr = mlx_get_data_addr(texture->img,
+		&texture->bits_per_pixel, &texture->line_length, &texture->endian);
 }
+
 
 void fill_angle(t_data* texture, char lettre)
 {
