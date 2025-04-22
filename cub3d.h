@@ -11,7 +11,7 @@
 # include <unistd.h>
 # include <math.h>
 
-# define ANG_NORTH 90
+# define ANG_NORTH -1
 # define ANG_SOUTH 270
 # define ANG_EAST 0
 # define ANG_WEST 180

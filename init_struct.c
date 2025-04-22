@@ -28,6 +28,7 @@ t_data init_list(void)
 	texture.color_floor = -1;
     texture.x = 0;
     texture.y = 0;
+    texture.angle = 0;
 	//
 	texture.w = 0;
 	texture.s = 0;
