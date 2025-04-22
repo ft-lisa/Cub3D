@@ -32,14 +32,14 @@ void	print_data(t_data *data)
 
 /* voir le cas si il y a des espaces derriere est de que il faut prendre e ncompte que toutes les lignes on la meme taille */
 
-// void	my_mlx_pixel_put(t_fractal *fractal, int x, int y, int color)
-// {
-// 	char	*dst;
+void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
+{
+	char	*dst;
 
-// 	dst = fractal->img_ptr + ((y * fractal->line_length)
-// 			+ (x * (fractal->bits_per_pixel / 8)));
-// 	*(unsigned int *)dst = color;
-// }
+	dst = texture->img_ptr + ((y * texture->line_length)
+			+ (x * (texture->bits_per_pixel / 8)));
+	*(unsigned int *)dst = color;
+}
 
 
 
@@ -125,8 +125,9 @@ void	line(t_data *texture)
 	{
 		int px = start_x + cos(angle) * i;
 		int py = start_y + sin(angle) * i;
-		mlx_pixel_put(texture->mlx, texture->win, px, py, 0xFF0000);
+		// mlx_pixel_put(texture->mlx, texture->win, px, py, 0xFF0000);
 		i++;
+		my_mlx_pixel_put(texture, px, py, 0xFF0000);
 	}
 }
 
@@ -145,7 +146,8 @@ void	put_character(t_data *texture)
 		l = 0;
 		while(l < size)
 		{
-			mlx_pixel_put(texture->mlx, texture->win, texture->y * 32 + l,texture->x * 32 + k,  16776960);
+			// mlx_pixel_put(texture->mlx, texture->win, texture->y * 32 + l,texture->x * 32 + k,  16776960);
+			my_mlx_pixel_put(texture, texture->y * 32 + l + 10,texture->x * 32 + k +10,  16776960);
 			l++;
 		}
 		k++;
@@ -174,7 +176,8 @@ void put_square(t_data *texture, char lettre, int i, int j)
 		l = 0;
 		while(l < size)
 		{
-			mlx_pixel_put(texture->mlx, texture->win, j * 32 + l, i * 32 + k, color);
+			// mlx_pixel_put(texture->mlx, texture->win, j * 32 + l, i * 32 + k, color);
+			my_mlx_pixel_put(texture, j * 32 + l, i * 32 + k, color);
 			l++;
 		}
 		k++;
@@ -187,7 +190,26 @@ void start_minimap(t_data* texture)
 	int	j;
 
 	i = 0;
-	mlx_clear_window(texture->mlx, texture->win);
+	// mlx_clear_window(texture->mlx, texture->win);
+	if (texture->mlx && texture->img)
+	{
+		mlx_destroy_image(texture->mlx, texture->img);
+		texture->img = NULL;
+	}
+	texture->img = mlx_new_image(texture->mlx, 1366, 768);
+	while (texture->game_map[i])
+	{
+		j = 0;
+		while (texture->game_map[i][j])
+		{
+				put_square(texture, texture->game_map[i][j], i, j);
+			j++;
+		}
+		i++;
+	}
+	texture->img_ptr = mlx_get_data_addr(texture->img,
+		&texture->bits_per_pixel, &texture->line_length, &texture->endian);
+	// mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
 	while (texture->game_map[i])
 	{
 		j = 0;
@@ -199,6 +221,7 @@ void start_minimap(t_data* texture)
 		i++;
 	}
 	put_character(texture);
+	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
 }
 
 int key_press(int keycode, t_data *data)
