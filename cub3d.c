@@ -1,7 +1,5 @@
 #include "cub3d.h"
-
 #include <stdio.h>
-
 #include <stdio.h>
 
 void	print_data(t_data *data)
@@ -43,6 +41,44 @@ void	print_data(t_data *data)
 // 	*(unsigned int *)dst = color;
 // }
 
+	// int long;
+	// int i;
+	// //int j;
+	// float x;
+	// float y;
+
+	// i = (int)texture->x;
+	// // j = (int)texture->y;
+	// x = 
+	// while(texture->game_map[i][j] != '1')
+	// {
+	// 	long = long + tan()
+	// }
+
+int raycasting(t_data* texture)
+{
+}
+
+
+void	line(t_data *texture)
+{
+	double angle = texture->angle;
+	int i = 0;
+	int length = raycasting(texture); 
+
+	int start_x = texture->y * 32 + 14; 
+	int start_y = texture->x * 32 + 14;
+
+	while (i < length)
+	{
+		int px = start_x - sin(angle) * i;
+		int py = start_y - cos(angle) * i;
+		mlx_pixel_put(texture->mlx, texture->win, px, py, 0xFF0000);
+		i++;
+	}
+}
+
+
 void	put_character(t_data *texture)
 {
 	int k;
@@ -62,6 +98,7 @@ void	put_character(t_data *texture)
 		}
 		k++;
 	}
+	line(texture);
 }
 
 void put_square(t_data *texture, char lettre, int i, int j)
@@ -112,34 +149,16 @@ void start_minimap(t_data* texture)
 	put_character(texture);
 }
 
-int	key_hook(int keycode, t_data *texture)
-{
-	if (keycode == 65307) // ESC
-		exit(0);
-	if (keycode == W || keycode == UP) // W
-		texture->x -= 0.1;
-	if (keycode == S || keycode == DOWN) // S
-		texture->x += 0.1;
-	if (keycode == A || keycode == LEFT) // A
-		texture->y -= 0.1;
-	if (keycode == D || keycode == RIGHT) // D
-		texture->y += 0.1;
-
-	mlx_clear_window(texture->mlx, texture->win);
-	start_minimap(texture);
-	return (0);
-}
-
 int key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307) // ESC
 		exit(0);
-	if (keycode == 119) data->w = 1;     // W
-	if (keycode == 115) data->s = 1;     // S
-	if (keycode == 97)  data->a = 1;     // A
-	if (keycode == 100) data->d = 1;     // D
-	if (keycode == 65361) data->left = 1;   // Left
-	if (keycode == 65363) data->right = 1;  // Right
+	if (keycode == 119) data->w = 1;  
+	if (keycode == 115) data->s = 1;     
+	if (keycode == 97)  data->a = 1;     
+	if (keycode == 100) data->d = 1;  
+	if (keycode == 65361) data->left = 1;  
+	if (keycode == 65363) data->right = 1;  
 	return (0);
 }
 
@@ -158,21 +177,20 @@ int key_release(int keycode, t_data *data)
 int update(t_data *data)
 {
 	// // Rotation
-	// if (data->left)
-	// 	data->angle -= data->angle;
-	// if (data->right)
-	// 	data->angle += data->angle;
-
+	if (data->left)
+		data->angle += 0.001;  //changer car si on le fait a l'infini on a overflow utiliser pi
+	if (data->right)
+		data->angle -= 0.001;
 	// Déplacement
 	if (data->w)
 	{
-		data->x += cos(data->angle) * 0.001;
-		data->y += sin(data->angle) * 0.001;
+		data->x -= cos(data->angle) * 0.001;
+		data->y -= sin(data->angle) * 0.001;
 	}
 	if (data->s)
 	{
-		data->x -= cos(data->angle) * 0.001;
-		data->y -= sin(data->angle) * 0.001;
+		data->x += cos(data->angle) * 0.001;
+		data->y += sin(data->angle) * 0.001;
 	}
 	start_minimap(data);
 	return (0);
@@ -191,11 +209,10 @@ int     main(int argc, char** argv)
         check_map(&texture);
         fill_struct(&texture, argv[1]);
         print_data(&texture);
-		start_minimap(&texture);
-		// mlx_key_hook(texture.win, key_hook, &texture);
-		mlx_hook(texture.win, 2, 1L<<0, key_press, &texture);    // Key down
-		mlx_hook(texture.win, 3, 1L<<1, key_release, &texture);  // Key up
-		mlx_loop_hook(texture.mlx, update, &texture);           // Loop update
-		mlx_loop(texture.mlx);
+	start_minimap(&texture);
+	mlx_hook(texture.win, 2, 1L<<0, key_press, &texture);    // Key down
+	mlx_hook(texture.win, 3, 1L<<1, key_release, &texture);  // Key up
+	mlx_loop_hook(texture.mlx, update, &texture);           // Loop update
+	mlx_loop(texture.mlx);
         return(0);
 }
