@@ -16,13 +16,11 @@ int	check_up_down(int old_size, int size_line, char *map, int i)
 	return (GOOD);
 }
 
-int	check_wall(char *map)
+int	check_wall(char *map, int i)
 {
-	int	i;
 	int	old_size;
 	int	size_line;
 
-	i = 0;
 	size_line = len_line(map, i);
 	while (map[i] != '\0')
 	{
@@ -103,7 +101,7 @@ void	check_map(t_data *info)
 		free(info->map);
 		exit(EXIT_FAILURE);
 	}
-	if (check_wall(copy_map) == ERROR)
+	if (check_wall(copy_map, 0) == ERROR)
 	{
 		free(info->map);
 		exit(EXIT_FAILURE);

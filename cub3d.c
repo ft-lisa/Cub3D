@@ -174,7 +174,6 @@ int update(t_data *data)
 		data->x -= cos(data->angle) * 0.001;
 		data->y -= sin(data->angle) * 0.001;
 	}
-	// mlx_clear_window(data->mlx, data->win);
 	start_minimap(data);
 	return (0);
 }

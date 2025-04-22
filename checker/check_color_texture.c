@@ -28,11 +28,8 @@ F     220,100,0
 F 220,100,51,54,
 */
 
-int check_num_color(char* line, int comma)
+int check_num_color(char* line, int comma, int num, int cont)
 {
-        int num;
-        int cont;
-
         while(*line != '\0')
         {
                 num = 0;
@@ -69,6 +66,6 @@ int color(char* line, t_element* map)
                 return(GOOD);
         line++;
         line = pass_space(line);
-        return(check_num_color(line, 0));
+        return(check_num_color(line, 0, 0, 0));
         
 }

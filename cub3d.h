@@ -61,7 +61,7 @@ void check_map(t_data* info);
                 /* check_color_texture */
 
 void texture(char* line, t_element* map);
-int check_num_color(char* line, int comma);
+int check_num_color(char* line, int comma, int num, int cont);
 int color(char* line, t_element* map);
 void texture(char* line, t_element* map);
 

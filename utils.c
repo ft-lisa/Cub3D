@@ -59,13 +59,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	while (s2[t] != '\0')
 	{
-		join[i] = s2[t];
-		t++;
+		join[i] = s2[t++];
 		i++;
 	}
 	join[i] = '\0';
-	free((void *)s1);
-	return (join);
+	return (free((void *)s1), join);
 }
 
 int	len_line(char *map, int i)
