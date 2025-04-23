@@ -41,49 +41,70 @@ void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+float ray_right(t_data* texture, t_ray ray)
+{
+	while(texture->game_map[ray.x][ray.y + ray.loop] != '1' && ray.x < texture->size_map && ray.y + ray.loop != '\0')
+	{
+		ray.x = (int)(texture->x + ray.loop * tan(texture->angle));
+		ray.loop++;
+	}
+		
+	ray.fx = texture->x + ray.loop * tan(texture->angle);
+	ray.fy = ray.loop + ray.y;
+	printf("DIS1 fut x : %f, fut y : %f\n\n", ray.fx, ray.fy);
+	ray.distance = sqrt((ray.fx - texture->x) * (ray.fx - texture->x) + (ray.fy - texture->y) * (ray.fy - texture->y));
+	return(ray.distance);
+}
 
-
+float ray_down(t_data* texture, t_ray ray)
+{
+	while(texture->game_map[ray.x + ray.loop][ray.y] != '1' && ray.x + ray.loop <= texture->size_map && ray.y!= '\0')
+	{
+		ray.y = (int)(texture->y + (ray.loop * cos(texture->angle)));
+		ray.loop++;
+	}	
+	ray.fy = texture->y + ray.loop * cos(texture->angle);
+	ray.fx = ray.loop + ray.x;
+	printf("DIS2 fut x : %f, fut y : %f\n\n", ray.fx, ray.fy);
+	ray.distance = sqrt((ray.fx - texture->x) * (ray.fx - texture->x) + (ray.fy - texture->y) * (ray.fy - texture->y));
+	return(ray.distance);
+}
 
 
 float dda(t_data *texture)
 {
-	int loop;
-	int x;
-	int y;
-	float fx;
-	float fy;
-	float distance;
-	float distance2;
+	t_ray ray;
 
-	loop = 0;
-	x = texture->x;
-	y = texture->y;
-	fx = x;
-	while(texture->game_map[x][y + loop] != '1')
-	{
-		x = (int)(texture->x + loop * tan(texture->angle));
-		loop++;
-	}
-		
-	fx = texture->x + loop * tan(texture->angle);
-	fy = loop + y;
-	distance = sqrt((fx - texture->x) * (fx - texture->x) + (fy - texture->y) * (fy - texture->y));
+	ray.loop = 0;
+	ray.x = texture->x;
+	ray.y = texture->y;
+	ray.distance2 = 0;
+	
+	if (texture->angle < PI / 3 && texture->angle > -(PI / 3))
+		ray.distance = ray_right(texture, ray);
+	if (texture->angle < ((5 * PI) / 6) && texture->angle > (PI / 4))
+		ray.distance = ray_down(texture, ray);
+	if (texture->angle < PI / 3 && texture->angle > -(PI / 3))
+ 	printf("dis1 : %f dis2 : %f\n", ray.distance, ray.distance2);
+	return(ray.distance);
 
-	while(texture->game_map[x][y - loop] != '1') // on va vers le haut en décrémentant Y
-	{
-	    x = (int)(texture->x + loop * tan(texture->angle));
-	    loop++;
-	}
+
+	// loop = 0;
+	// while(texture->game_map[x + loop][y] != '1') // on va vers le haut en décrémentant Y
+	// {
+	//     y = (int)(texture->y + loop * tan(texture->angle));
+	//     loop++;
+	// }
 	
-	fx = texture->x + loop * tan(texture->angle);
-	fy = y - loop;  // On décrémente Y pour aller vers le haut
-	distance2 = sqrt((fx - texture->x) * (fx - texture->x) + (fy - texture->y) * (fy - texture->y));
+	// fy = texture->y + loop * tan(texture->angle);
+	// fx = x - loop;  // On décrémente Y pour aller vers le haut
+	// distance2 = sqrt((fx - texture->x) * (fx - texture->x) + (fy - texture->y) * (fy - texture->y));
 	
-	if (distance < distance2)
-		return(distance);
+	// if (distance < distance2)
 	
-	printf("x: %f, y: %f loop: %d, futur x: %f, cos angle : %f, dis : %f\n", texture->x, texture->y, loop, fx, sin(texture->angle), distance);
-	return(distance2);
+	
+	//printf("x: %f, y: %f loop: %d, futur x: %f, cos angle : %f, dis : %f\n", texture->x, texture->y, loop, fx, sin(texture->angle), distance);
+	// return(distance2);
 }
 
 
@@ -92,7 +113,8 @@ void	line(t_data *texture)
 
 	double angle = texture->angle;
 	int i = 0;
-	int length = dda(texture) * 32; 
+	int length = 50; //dda(texture) * 32; 
+	printf("ang : %f\n", texture->angle);
 
 	int start_x = texture->y * 32 + 4; 
 	int start_y = texture->x * 32  + 4;
@@ -250,7 +272,7 @@ int     main(int argc, char** argv)
         fill_map(argv[1], &texture);
         check_map(&texture);
         fill_struct(&texture, argv[1]);
-        print_data(&texture);
+        //print_data(&texture);
 	start_minimap(&texture);
 	mlx_hook(texture.win, 2, 1L<<0, key_press, &texture);    // Key down
 	mlx_hook(texture.win, 3, 1L<<1, key_release, &texture);  // Key up

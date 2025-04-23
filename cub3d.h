@@ -29,6 +29,8 @@
 
 typedef struct s_data
 {
+
+	// game
 	char	*map;
 	char	**game_map;
 	void	*north;
@@ -37,7 +39,9 @@ typedef struct s_data
 	void	*west;
 	void	*mlx;
 	void	*win;
+	int	size_map;
 
+	// pixel
 	void	*img;
 	void	*img_ptr;
 	int		bits_per_pixel;
@@ -58,6 +62,17 @@ typedef struct s_data
 	int left;
 	int right;
 }			t_data;
+
+typedef struct s_ray
+{
+	int	loop;
+	int	x;
+	int	y;
+	float	fx;
+	float	fy;
+	float	distance;
+	float	distance2;
+}			t_ray;
 
                 /* check_map */
 
@@ -84,7 +99,6 @@ void copy_map(int fd, t_data* tex);
 void fill_map(char* file, t_data* tex);
 void fill_texture(char* line, t_data* texture);
 void fill_color(char* line, t_data* texture);
-void map_to_game_map(t_data* texture);
 
 				/* fill_struct2 */
 
