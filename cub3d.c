@@ -162,7 +162,7 @@ void put_square(t_data *texture, char lettre, int i, int j)
 
 
 	k = 0;
-	size = 32;
+	size = 31;
 	if (lettre == '0')
 		color = 0;
 	else if (lettre == '1')
@@ -195,6 +195,19 @@ void start_minimap(t_data* texture)
 		texture->img = NULL;
 	}
 	texture->img = mlx_new_image(texture->mlx, 1366, 768);
+	//fill background
+	int	x = 0;
+	int y = 0;
+	while (y < 768)
+	{
+		x = 0;
+		while (x < 1366)
+		{
+			my_mlx_pixel_put(texture, x, y, 0x808080);
+			x++;
+		}
+		y++;
+	}
 	while (texture->game_map[i])
 	{
 		j = 0;
@@ -238,23 +251,39 @@ int update(t_data *data)
 {
 	// // Rotation
 	if (data->left)
-		data->angle -= 0.005;
+		data->angle -= 0.015;
   //changer car si on le fait a l'infini on a overflow utiliser pi
 	if (data->right)
-		data->angle += 0.005;
+		data->angle += 0.015;
 	if (data->angle > 6 || data->angle < -6)
 		data->angle = 0;
 
 	// Déplacement
 	if (data->w)
 	{
-		data->x += sin(data->angle) * 0.005;
-		data->y += cos(data->angle) * 0.005;
+		data->x += sin(data->angle) * 0.015;
+		data->y += cos(data->angle) * 0.015;
 	}
 	if (data->s)
 	{
-		data->x -= sin(data->angle) * 0.005;
-		data->y -= cos(data->angle) * 0.005;
+		data->x -= sin(data->angle) * 0.015;
+		data->y -= cos(data->angle) * 0.015;
+	}
+	if (data->a)
+	{
+		data->angle -= 0.015;
+		if (data->angle < 0)
+			data->angle += 2 * PI;
+		data->x = cos(data->angle);
+		data->y = sin(data->angle);
+	}
+	if (data->d)
+	{
+		data->angle += 0.015;
+		if (data->angle > 2 * PI)
+			data->angle -= 2 * PI;
+		data->x = cos(data->angle);
+		data->y = sin(data->angle);
 	}
 	start_minimap(data);
 	return (0);

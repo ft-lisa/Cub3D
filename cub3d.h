@@ -25,7 +25,7 @@
 # define LEFT	65361
 # define RIGHT	65363
 # define ESC	65307
-#define PI 3.1415926535
+# define PI 	3.1415926535
 
 typedef struct s_data
 {
