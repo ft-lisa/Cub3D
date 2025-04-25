@@ -1,0 +1,69 @@
+#include "cub3d.h"
+
+int key_press(int keycode, t_data *data)
+{
+	if (keycode == 65307) // ESC
+		exit(0);
+	if (keycode == 119) data->w = 1;  
+	if (keycode == 115) data->s = 1;     
+	if (keycode == 97)  data->a = 1;     
+	if (keycode == 100) data->d = 1;  
+	if (keycode == 65361) data->left = 1;  
+	if (keycode == 65363) data->right = 1;  
+	return (0);
+}
+
+// key release
+int key_release(int keycode, t_data *data)
+{
+	if (keycode == 119) data->w = 0;
+	if (keycode == 115) data->s = 0;
+	if (keycode == 97)  data->a = 0;
+	if (keycode == 100) data->d = 0;
+	if (keycode == 65361) data->left = 0;
+	if (keycode == 65363) data->right = 0;
+	return (0);
+}
+
+int update(t_data *data)
+{
+	// // Rotation a changer en vecteur
+	if (data->left)
+		data->angle -= 0.015;
+	if (data->right)
+		data->angle += 0.015;
+	if (data->angle > 6 || data->angle < -6)
+		data->angle = 0;
+
+	// Déplacement
+	if (data->w)
+	{
+		data->x += sin(data->angle) * 0.015;
+		data->y += cos(data->angle) * 0.015;
+	}
+	if (data->s)
+	{
+		data->x -= sin(data->angle) * 0.015;
+		data->y -= cos(data->angle) * 0.015;
+	}
+	draw_game(data);
+	return (0);
+}
+
+
+// if (data->a)
+	// {
+	// 	data->angle -= 0.015;
+	// 	if (data->angle < 0)
+	// 		data->angle += 2 * PI;
+	// 	data->x = cos(data->angle);
+	// 	data->y = sin(data->angle);
+	// }
+	// if (data->d)
+	// {
+	// 	data->angle += 0.015;
+	// 	if (data->angle > 2 * PI)
+	// 		data->angle -= 2 * PI;
+	// 	data->x = cos(data->angle);
+	// 	data->y = sin(data->angle);
+	// }

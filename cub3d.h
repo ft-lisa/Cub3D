@@ -11,6 +11,8 @@
 # include <unistd.h>
 # include <math.h>
 
+# define WIDTH		1366
+# define HEIGHT		768
 # define ANG_NORTH -1
 # define ANG_SOUTH 270
 # define ANG_EAST 0
@@ -117,5 +119,20 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int	len_line(char *map, int i);
 int	where_in_line(char *map, int i);
 char	**ft_split(char const *s, char c);
+
+		/* movement */
+
+int update(t_data *data);
+int key_release(int keycode, t_data *data);
+int key_press(int keycode, t_data *data);
+
+		/* draw_game */
+
+void put_background(t_data* texture);
+void put_minimap(t_data* texture);
+void draw_game(t_data* texture);
+void put_square(t_data *texture, int color, int size, float x, float y);
+void	line(t_data *texture);
+void	my_mlx_pixel_put(t_data *texture, int x, int y, int color);
 
 #endif

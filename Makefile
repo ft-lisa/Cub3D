@@ -1,86 +1,72 @@
-# # Nom du programme
-# NAME = cub3d
-
-# # Répertoires
-# SRC_DIRS = . ./checker ./getnextline
-# OBJ_DIR = trash
-# MLX_DIR = ./minilibx-linux
-
-# # Compiler
-# CC = cc
-# CFLAGS = -Wall -Wextra -Werror -I$(MLX_DIR)
-# LDFLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
-
-# # Fichiers sources et objets
-# SRCS = $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
-# OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
-
-# # Cible principale
-# all: $(MLX_DIR)/libmlx.a $(NAME)
-
-# # Compilation du programme
-# $(NAME): $(OBJS)
-# 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-
-# # Compilation des .o dans trash
-# $(OBJ_DIR)/%.o: %.c
-# 	@mkdir -p $(dir $@)
-# 	$(CC) $(CFLAGS) -c $< -o $@
-
-# # Compilation de la minilibx
-# $(MLX_DIR)/libmlx.a:
-# 	$(MAKE) -C $(MLX_DIR)
-
-# # Nettoyage
-# clean:
-# 	rm -rf $(OBJ_DIR)
-# 	$(MAKE) -C $(MLX_DIR) clean
-
-# fclean: clean
-# 	rm
-
-
-
 NAME = cub3d
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+LIBS = -L./minilibx-linux -lmlx -lXext -lX11 -lm -lz
 
-MLX_DIR = ./minilibx-linux
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+S_DIR = srcs
+O_DIR = .objs
 
-INCLUDES = -I. -I$(MLX_DIR) -I./getnextline -I./checker
-
-SRCS = \
+SRCS = 	\
+	checker/check_color_texture.c \
+	checker/check_element.c \
+	checker/check_map.c \
+	getnextline/get_next_line.c \
+	getnextline/get_next_line_utils.c \
+	ft_split.c \
 	cub3d.c \
 	fill_struct.c \
 	fill_struct2.c \
 	init_struct.c \
 	utils.c \
-	getnextline/get_next_line.c \
-	getnextline/get_next_line_utils.c \
-	ft_split.c \
-	checker/check_color_texture.c \
-	checker/check_element.c \
-	checker/check_map.c
+	movement.c \
+	draw_game.c \
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:%.c=$(O_DIR)/%.o)
 
-all: $(NAME)
+RESET = \033[0m
+GREEN = \033[0;32m
+RED	= \033[0;31m
+
+COUNTER_FILE = .counter_makefile
+
+
+all: reset_counter $(NAME)
+	@if [ ! -f .built ]; then \
+		echo "$(NAME): everything is already up to date."; \
+	fi
+	@rm -f .built
+
+mlx:
+	make -C ./minilibx-linux
+
+bonus: all
+
+$(O_DIR)/%.o : %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -I./hdrs/ -c $< -o $@
+	@count=`cat $(COUNTER_FILE)`; \
+	count=`expr $$count + 1`; \
+	echo $$count > $(COUNTER_FILE); \
+	echo -n "\rCub3D: compiling... $$count/$(words $(SRCS))"
 
 $(NAME): $(OBJS)
-	$(MAKE) -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(INCLUDES) -o $(NAME)
+	@$(CC) $(CFLAGS) -I./hdrs/ $(OBJS) $(LIBS) -o $(NAME)
+	@echo "\n$(NAME): $(GREEN)$(NAME)$(RESET) has been compiled."
+	@rm $(COUNTER_FILE)
+	@touch .built
 
 clean:
-	$(MAKE) clean -C $(MLX_DIR)
-	rm -f $(OBJS)
+	@rm -rf $(O_DIR) $(COUNTER_FILE) .built
+	@echo "$(NAME): ${RED}${O_DIR}${RESET} has been deleted."
 
-fclean: clean
-	$(MAKE) fclean -C $(MLX_DIR)
-	rm -f $(NAME)
+fclean:
+	@rm -rf $(O_DIR) $(NAME) $(COUNTER_FILE) .built
+	@echo "$(NAME): ${RED}${O_DIR}${RESET} and ${RED}${NAME}${RESET} have been deleted."
 
 re: fclean all
 
-.PHONY: all clean fclean re
+reset_counter:
+	@echo 0 > $(COUNTER_FILE)
 
+.PHONY: all bonus clean fclean re reset_counter
