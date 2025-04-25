@@ -29,28 +29,29 @@ void	print_data(t_data *data)
 		printf("Game Map: null\n");
 }
 
-float	dda(t_data *game)
+double	dda(t_data *game)
 {
 	int		hit;
 	int		stepX;
 	int		stepY;
-	int x;
-	int y;
-	float	nextX;
-	float	nextY;
-	float	deltaDistX;
-	float	deltaDistY;
-	float	sideDistX;
-	float	sideDistY;
-	int side;
+	int		x;
+	int		y;
+	double	nextX;
+	double	nextY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	sideDistX;
+	double	sideDistY;
+	int		side;
+	double	dist;
+
 	deltaDistX = fabs(1 / game->dirX);
 	deltaDistY = fabs(1 / game->dirY);
-	
 	nextX = game->x;
 	nextY = game->y;
 	hit = 0;
-	x = game->x;
-	y = game->y;
+	x = (int)game->x;
+	y = (int)game->y;
 	if (game->dirX < 0)
 	{
 		stepX = -1;
@@ -89,71 +90,12 @@ float	dda(t_data *game)
 			hit = 1;
 	}
 	if (side == 0)
-		return (sideDistX - deltaDistX);
+		dist = (x - game->x + (1 - stepX) / 2.0) / game->dirX;
 	else
-		return (sideDistY - deltaDistY);
+		dist = (y - game->y + (1 - stepY) / 2.0) / game->dirY;
+	// printf("x: %f, y: %f, dist : %f\n", dist * 32);
+	return (dist * 32);
 }
-
-// float	dda(t_data *game, float rayDirX, float rayDirY)
-// {
-// 	int		mapX;
-// 	int		mapY;
-// 	float	deltaDistX;
-// 	float	deltaDistY;
-// 	int		stepX;
-// 	int		stepY;
-// 	float	sideDistX;
-// 	float	sideDistY;
-// 	int		hit;
-
-// 	mapX = (int)game->x;
-// 	mapY = (int)game->y;
-// 	deltaDistX = fabs(1 / rayDirX);
-// 	deltaDistY = fabs(1 / rayDirY);
-// 	if (rayDirX < 0)
-// 	{
-// 		stepX = -1;
-// 		sideDistX = (game->x - mapX) * deltaDistX;
-// 	}
-// 	else
-// 	{
-// 		stepX = 1;
-// 		sideDistX = (mapX + 1.0 - game->x) * deltaDistX;
-// 	}
-// 	if (rayDirY < 0)
-// 	{
-// 		stepY = -1;
-// 		sideDistY = (game->y - mapY) * deltaDistY;
-// 	}
-// 	else
-// 	{
-// 		stepY = 1;
-// 		sideDistY = (mapY + 1.0 - game->y) * deltaDistY;
-// 	}
-// 	hit = 0;
-// 	int side; // 0 si vertical, 1 si horizontal
-// 	while (hit == 0)
-// 	{
-// 		if (sideDistX < sideDistY)
-// 		{
-// 			sideDistX += deltaDistX;
-// 			mapX += stepX;
-// 			side = 0;
-// 		}
-// 		else
-// 		{
-// 			sideDistY += deltaDistY;
-// 			mapY += stepY;
-// 			side = 1;
-// 		}
-// 		if (game->map[mapY][mapX] == '1') // mur ?
-// 			hit = 1;
-// 	}
-// 	if (side == 0)
-// 		return (sideDistX - deltaDistX);
-// 	else
-// 		return (sideDistY - deltaDistY);
-// }
 
 int	main(int argc, char **argv)
 {

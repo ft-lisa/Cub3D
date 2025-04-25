@@ -67,8 +67,8 @@ void	fill_pos(t_data *texture)
 				|| texture->game_map[i][j] == 'E'
 				|| texture->game_map[i][j] == 'W')
 			{
-				texture->x = j;
-				texture->y = i;
+				texture->x = j + 0.5;
+				texture->y = i + 0.5;
 				fill_angle(texture, texture->map[i]);
 			}
 			j++;

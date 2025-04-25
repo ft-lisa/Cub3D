@@ -13,23 +13,40 @@ void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-
-void	line(t_data *texture)
+void	draw_character(t_data *texture, int center_x, int center_y, int radius,
+	int color)
 {
-	float i = 0;
-	float length = dda(texture) * 32;
+int	x;
+int	y;
 
-	int start_x = texture->x * 32 + 4; 
-	int start_y = texture->y * 32  + 4;
-
-	while (i < length)
+y = -radius + 1;
+while (y <= radius)
+{
+	x = -radius + 1;
+	while (x <= radius)
 	{
-		int px = start_x + texture->dirX * i;
-		int py = start_y + texture->dirY * i;
-		my_mlx_pixel_put(texture, px, py, 0xFF0000);
-		i += 1;
+		if (x * x + y * y < radius * radius)
+			my_mlx_pixel_put(texture, center_x + x, center_y + y, color);
+		x++;
 	}
+	y++;
 }
+}
+
+void line(t_data *texture)
+{
+    int length = dda(texture); // longueur en pixels (par ex. distance au mur)
+    double start_x = texture->x * 32;
+    double start_y = texture->y * 32;
+
+    for (int i = 0; i <= length; i++) // on va jusqu’à length inclus
+    {
+        int px = round(start_x + texture->dirX * i);
+        int py = round(start_y + texture->dirY * i);
+        my_mlx_pixel_put(texture, px, py, 0xFF0000);
+    }
+}
+
 
 void put_square(t_data *texture, int color, int size, float x, float y)
 {
@@ -98,7 +115,8 @@ void draw_game(t_data* texture)
 	texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
 	put_background(texture);
 	put_minimap(texture);
-	put_square(texture, 16776960, 8, texture->x, texture->y); // personnage
+	// put_square(texture, 16776960, 8, texture->x, texture->y); // personnage
+	draw_character(texture, texture->x * 32, texture->y * 32, 5, 16776960);
 	line(texture);
 	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
 }
