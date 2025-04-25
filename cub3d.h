@@ -52,8 +52,13 @@ typedef struct s_data
 
 	int		color_floor;
 	int		color_ceilling;
+
+	//joueur
 	float		x;
 	float		y;
+	float		dirX;
+	float		dirY;
+
 	float		angle;
 
 	// keys

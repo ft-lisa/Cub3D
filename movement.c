@@ -27,28 +27,61 @@ int key_release(int keycode, t_data *data)
 
 int update(t_data *data)
 {
-	// // Rotation a changer en vecteur
-	if (data->left)
-		data->angle -= 0.015;
-	if (data->right)
-		data->angle += 0.015;
-	if (data->angle > 6 || data->angle < -6)
-		data->angle = 0;
+	float moveSpeed;
+	double oldDirX;
 
+	oldDirX = data->dirX;
+	moveSpeed = 0.015;
+
+	if (data->left)
+	{
+		data->dirX = data->dirX * cos(-moveSpeed) - data->dirY * sin(-moveSpeed);
+		data->dirY = oldDirX * sin(-moveSpeed) + data->dirY * cos(-moveSpeed);
+	}
+	if (data->right)
+	{
+		data->dirX = data->dirX * cos(moveSpeed) - data->dirY * sin(moveSpeed);
+		data->dirY = oldDirX * sin(moveSpeed) + data->dirY * cos(moveSpeed);
+	}
 	// Déplacement
 	if (data->w)
 	{
-		data->x += sin(data->angle) * 0.015;
-		data->y += cos(data->angle) * 0.015;
+		data->x += data->dirX * moveSpeed;
+		data->y += data->dirY * moveSpeed;
 	}
 	if (data->s)
 	{
-		data->x -= sin(data->angle) * 0.015;
-		data->y -= cos(data->angle) * 0.015;
+		data->x -= data->dirX * moveSpeed;
+		data->y -= data->dirY  * moveSpeed;
 	}
 	draw_game(data);
 	return (0);
 }
+
+// int update(t_data *data)
+// {
+// 	// // Rotation a changer en vecteur
+// 	if (data->left)
+// 		data->angle -= 0.015;
+// 	if (data->right)
+// 		data->angle += 0.015;
+// 	if (data->angle > 6 || data->angle < -6)
+// 		data->angle = 0;
+
+// 	// Déplacement
+// 	if (data->w)
+// 	{
+// 		data->x += sin(data->angle) * 0.015;
+// 		data->y += cos(data->angle) * 0.015;
+// 	}
+// 	if (data->s)
+// 	{
+// 		data->x -= sin(data->angle) * 0.015;
+// 		data->y -= cos(data->angle) * 0.015;
+// 	}
+// 	draw_game(data);
+// 	return (0);
+// }
 
 
 // if (data->a)

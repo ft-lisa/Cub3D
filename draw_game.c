@@ -16,19 +16,16 @@ void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
 
 void	line(t_data *texture)
 {
-
-	double angle = texture->angle;
 	int i = 0;
 	int length = 50;
-	printf("ang : %f\n", texture->angle);
 
-	int start_x = texture->y * 32 + 4; 
-	int start_y = texture->x * 32  + 4;
+	int start_x = texture->x * 32 + 4; 
+	int start_y = texture->y * 32  + 4;
 
 	while (i < length)
 	{
-		int px = start_x + cos(angle) * i;
-		int py = start_y + sin(angle) * i;
+		int px = start_x + texture->dirX * i;
+		int py = start_y + texture->dirY * i;
 		my_mlx_pixel_put(texture, px, py, 0xFF0000);
 		i++;
 	}
@@ -46,7 +43,7 @@ void put_square(t_data *texture, int color, int size, float x, float y)
 		j = 0;
 		while(j < size)
 		{
-			my_mlx_pixel_put(texture, y * CUB_SIZE + j , x * CUB_SIZE + i, color);
+			my_mlx_pixel_put(texture, x * CUB_SIZE + i , y * CUB_SIZE + j , color);
 			j++;
 		}
 		i++;
@@ -85,9 +82,9 @@ void put_minimap(t_data* texture)
 		while (texture->game_map[i][j])
 		{
 				if (texture->game_map[i][j] == '1')
-					put_square(texture, 654654, 31, i, j);
+					put_square(texture, 654654, 31, j, i);
 				else
-					put_square(texture, 0, 31, i, j);
+					put_square(texture, 0, 31, j, i);
 			j++;
 		}
 		i++;
