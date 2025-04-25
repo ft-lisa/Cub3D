@@ -16,8 +16,8 @@ void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
 
 void	line(t_data *texture)
 {
-	int i = 0;
-	int length = 50;
+	float i = 0;
+	float length = dda(texture) * 32;
 
 	int start_x = texture->x * 32 + 4; 
 	int start_y = texture->y * 32  + 4;
@@ -27,7 +27,7 @@ void	line(t_data *texture)
 		int px = start_x + texture->dirX * i;
 		int py = start_y + texture->dirY * i;
 		my_mlx_pixel_put(texture, px, py, 0xFF0000);
-		i++;
+		i += 1;
 	}
 }
 

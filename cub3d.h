@@ -140,4 +140,7 @@ void put_square(t_data *texture, int color, int size, float x, float y);
 void	line(t_data *texture);
 void	my_mlx_pixel_put(t_data *texture, int x, int y, int color);
 
+float	dda(t_data *game);
+
+
 #endif

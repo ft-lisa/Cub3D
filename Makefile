@@ -1,7 +1,7 @@
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LIBS = -L./minilibx-linux -lmlx -lXext -lX11 -lm -lz
 
 S_DIR = srcs
