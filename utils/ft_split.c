@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:07:10 by jaqin             #+#    #+#             */
-/*   Updated: 2025/04/21 14:41:34 by jaqin            ###   ########.fr       */
+/*   Updated: 2025/04/26 11:23:19 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int	count_words(const char *str, char c)
 {

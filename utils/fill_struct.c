@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void copy_map(int fd, t_data* tex)
 {

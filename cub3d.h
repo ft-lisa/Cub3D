@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "getnextline/get_next_line.h"
+# include "utils/getnextline/get_next_line.h"
 # include "checker/err_mess.h"
 # include "minilibx-linux/mlx.h"
 
@@ -72,13 +72,17 @@ typedef struct s_data
 
 typedef struct s_ray
 {
-	int	loop;
-	int	x;
-	int	y;
-	float	fx;
-	float	fy;
-	float	distance;
-	float	distance2;
+	int		hit;
+	int		stepX;
+	int		stepY;
+	int		x;
+	int		y;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	sideDistX;
+	double	sideDistY;
+	int		side;
+	double	dist;
 }			t_ray;
 
                 /* check_map */
@@ -139,9 +143,13 @@ void draw_game(t_data* texture);
 void put_square(t_data *texture, int color, int size, float x, float y);
 void	line(t_data *texture);
 void	my_mlx_pixel_put(t_data *texture, int x, int y, int color);
+void draw_character(t_data *texture, int center_x, int center_y, int radius, int color);
+
+		/* ray_casting */
 
 double	dda(t_data *game);
-void draw_character(t_data *texture, int center_x, int center_y, int radius, int color);
+void ray_loop(t_ray* ray, t_data* game);
+void init_ray(t_ray *ray, t_data *game);
 
 
 #endif

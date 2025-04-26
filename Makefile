@@ -11,16 +11,17 @@ SRCS = 	\
 	checker/check_color_texture.c \
 	checker/check_element.c \
 	checker/check_map.c \
-	getnextline/get_next_line.c \
-	getnextline/get_next_line_utils.c \
-	ft_split.c \
+	utils/getnextline/get_next_line.c \
+	utils/getnextline/get_next_line_utils.c \
+	utils/ft_split.c \
+	utils/utils.c \
+	utils/fill_struct.c \
+	utils/fill_struct2.c \
+	utils/init_struct.c \
+	game/movement.c \
+	game/draw_game.c \
+	game/dda.c \
 	cub3d.c \
-	fill_struct.c \
-	fill_struct2.c \
-	init_struct.c \
-	utils.c \
-	movement.c \
-	draw_game.c \
 
 OBJS = $(SRCS:%.c=$(O_DIR)/%.o)
 
