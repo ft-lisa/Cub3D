@@ -44,8 +44,8 @@ void	line(t_data *texture)
 	i = 0;
 	while (i <= length)
 	{
-		px = round(texture->x * CUB_SIZE + texture->dirX * i);
-		py = round(texture->y * CUB_SIZE+ texture->dirY * i);
+		px = round(texture->x * CUB_SIZE + texture->ddaX * i);
+		py = round(texture->y * CUB_SIZE+ texture->ddaY * i);
 		my_mlx_pixel_put(texture, px, py, 0xFF0000);
 		i++;
 	}
@@ -110,14 +110,38 @@ void	put_minimap(t_data *texture)
 	}
 }
 
+#include <math.h>
+
+void rotate_vector(t_data *texture, float angle_degrees)
+{
+	float old_x = texture->ddaX;
+	float old_y = texture->ddaY;
+    float angle_radians = angle_degrees * PI / 180.0; // conversion degrés -> radians
+
+    texture->ddaX = old_x * cos(angle_radians) - old_y * sin(angle_radians);
+    texture-> ddaY = old_x * sin(angle_radians) + old_y * cos(angle_radians);
+}
+
+
 void	draw_game(t_data *texture)
 {
+	texture->ddaX = texture->dirX;
+	texture->ddaY = texture->dirY;
+	float i = -30;
 	mlx_destroy_image(texture->mlx, texture->img);
 	texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
 	put_background(texture);
 	put_minimap(texture);
 	// put_square(texture, 16776960, 8, texture->x, texture->y); // personnage
 	draw_character(texture, texture->x * 32, texture->y * 32, 5, 16776960);
-	line(texture);
+	while (i <= 30) // -30 -> +30 degrés (total 60° FOV)
+	{
+		// Repartir de la direction de base à chaque rayon
+		texture->ddaX = texture->dirX;
+		texture->ddaY = texture->dirY;
+		rotate_vector(texture, i);
+		line(texture);
+		i += 0.1;
+	}	
 	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
 }

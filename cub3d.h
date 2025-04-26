@@ -58,6 +58,8 @@ typedef struct s_data
 	float		y;
 	float		dirX;
 	float		dirY;
+	float		ddaX;
+	float		ddaY;
 
 	float		angle;
 

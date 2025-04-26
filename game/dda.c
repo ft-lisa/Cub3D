@@ -2,7 +2,7 @@
 
 void init_ray(t_ray *ray, t_data *game)
 {
-	if (game->dirX < 0)
+	if (game->ddaX < 0)
 	{
 		ray->stepX = -1;						// dans map_game vers ou on va
 		ray->sideDistX = (game->x - ray->x) * ray->deltaDistX;		// combien il manque pour aller de notre float x -> int x
@@ -12,7 +12,7 @@ void init_ray(t_ray *ray, t_data *game)
 		ray->stepX = 1;
 		ray->sideDistX = (ray->x + 1.0 - game->x) * ray->deltaDistX;
 	}
-	if (game->dirY < 0)
+	if (game->ddaY < 0)
 	{
 		ray->stepY = -1;
 		ray->sideDistY = (game->y - ray->y) * ray->deltaDistY;
@@ -49,8 +49,8 @@ double	dda(t_data *game)
 {
 	t_ray ray;
 
-	ray.deltaDistX = fabs(1 / game->dirX);					// de combien de distance on avance a chaque fois qu'on veut un entier
-	ray.deltaDistY = fabs(1 / game->dirY);
+	ray.deltaDistX = fabs(1 / game->ddaX);					// de combien de distance on avance a chaque fois qu'on veut un entier
+	ray.deltaDistY = fabs(1 / game->ddaY);
 	ray.hit = 0;
 	ray.x = (int)game->x;
 	ray.y = (int)game->y;
