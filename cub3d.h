@@ -53,6 +53,7 @@ typedef struct s_data
 	int		color_floor;
 	int		color_ceilling;
 
+	
 	//joueur
 	float		x;
 	float		y;
@@ -85,6 +86,8 @@ typedef struct s_ray
 	double	sideDistY;
 	int		side;
 	double	dist;
+
+	double perpWallDist;
 }			t_ray;
 
                 /* check_map */
@@ -152,6 +155,7 @@ void draw_character(t_data *texture, int center_x, int center_y, int radius, int
 double	dda(t_data *game);
 void ray_loop(t_ray* ray, t_data* game);
 void init_ray(t_ray *ray, t_data *game);
+void	draw_wall(t_data *game);
 
 
 #endif

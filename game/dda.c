@@ -49,6 +49,7 @@ double	dda(t_data *game)
 {
 	t_ray ray;
 
+	ray.perpWallDist = 0;
 	ray.deltaDistX = fabs(1 / game->ddaX);					// de combien de distance on avance a chaque fois qu'on veut un entier
 	ray.deltaDistY = fabs(1 / game->ddaY);
 	ray.hit = 0;

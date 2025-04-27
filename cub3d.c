@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	check_map(&texture);
 	fill_struct(&texture, argv[1]);
 	// print_data(&texture);
+	// draw_wall(&texture);
 	draw_game(&texture);
 	mlx_hook(texture.win, 2, 1L << 0, key_press, &texture);   // Key down
 	mlx_hook(texture.win, 3, 1L << 1, key_release, &texture); // Key up
