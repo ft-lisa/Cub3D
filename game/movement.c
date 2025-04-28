@@ -37,11 +37,15 @@ int update(t_data *data)
 	{
 		data->dirX = data->dirX * cos(-moveSpeed) - data->dirY * sin(-moveSpeed);
 		data->dirY = oldDirX * sin(-moveSpeed) + data->dirY * cos(-moveSpeed);
+		data->planeX = -data->dirY * 0.66;
+		data->planeY = data->dirX * 0.66;
 	}
 	if (data->right)
 	{
 		data->dirX = data->dirX * cos(moveSpeed) - data->dirY * sin(moveSpeed);
 		data->dirY = oldDirX * sin(moveSpeed) + data->dirY * cos(moveSpeed);
+		data->planeX = -data->dirY * 0.66;
+		data->planeY = data->dirX * 0.66;
 	}
 	// Déplacement
 	if (data->w)

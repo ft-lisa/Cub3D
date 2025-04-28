@@ -122,31 +122,23 @@ void draw_vertical_line(t_data *texture, int x, int drawStart, int drawEnd, int 
     }
 }
 
+
 void draw_wall(t_data *game)
 {
     for (int x = 0; x < WIDTH; x++)
     {
-        // 1. Calculate ray direction
         float cameraX = 2 * x / (float)WIDTH - 1; // Camera plane coordinate
-        game->ddaX = game->dirX * cameraX;
-        game->ddaY = game->dirY * cameraX;
-
-        // 2. Run DDA to find wall and distance
+        game->ddaX = game->dirX + game->planeX* cameraX;
+        game->ddaY = game->dirY + game->planeY * cameraX;
         float perpWallDist = dda(game);
-
-        // 3. Calculate wall height
-        int lineHeight = (int)(HEIGHT / perpWallDist);
-
-        // 4. Calculate drawing range
+        int lineHeight = (int)(HEIGHT / perpWallDist) * 4;
         int drawStart = -lineHeight / 2 + HEIGHT / 2;
         if (drawStart < 0) 
 			drawStart = 0;
         int drawEnd = lineHeight / 2 + HEIGHT / 2;
         if (drawEnd >= HEIGHT) 
 			drawEnd = HEIGHT - 1;
-
-        // 5. Draw vertical line from drawStart to drawEnd at pixel x
-        draw_vertical_line(game, x, drawStart, drawEnd, 0xCCBBAA); // Example color
+        draw_vertical_line(game, x, drawStart, drawEnd, 0xFF00CC); // Example color
     }
 }
 
@@ -163,6 +155,22 @@ void rotate_vector(t_data *texture, float angle_degrees)
 
 void	draw_game(t_data *texture)
 {
+
+
+	// int img_width = 500;
+	// int img_height = 367;
+	// texture->img = mlx_xpm_file_to_image(texture->mlx, "game/mario_non.xpm", &img_width, &img_height);
+	// if (!texture->img)
+	// {
+	// 	// Handle error if the image failed to load
+	// 	mlx_destroy_window(texture->mlx, texture->win);
+	// 	return ;
+	// }
+	// mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
+
+
+    	//sleep(1);
+	//mlx_destroy_window(texture->mlx, texture->win);
 	texture->ddaX = texture->dirX;
 	texture->ddaY = texture->dirY;
 	float i = -30;
@@ -182,21 +190,9 @@ void	draw_game(t_data *texture)
 		i += 0.1;
 	}
 	draw_wall(texture); // test. added it for wall drawing
-
+	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
 	//////////////////////////////////////////////
 	//    SAD it didn't work :(
-	// mlx_destroy_image(texture->mlx, texture->img);
-	// texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
-	// int img_width = 500;
-	// int img_height = 367;
-	// texture->img = mlx_xpm_file_to_image(texture->mlx, "mario_non.xpm", &img_width, &img_height);
-    // if (!texture->img)
-    // {
-    //     // Handle error if the image failed to load
-    //     mlx_destroy_window(texture->mlx, texture->win);
-    //     return ;
-    // }
-	//////////////////////////////////////////////
+	//mlx_destroy_image(texture->mlx, texture->img);
 
-	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
 }
