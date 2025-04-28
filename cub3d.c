@@ -29,6 +29,33 @@ void	print_data(t_data *data)
 		printf("Game Map: null\n");
 }
 
+int key_hook(int keycode)
+{
+    if (keycode == 32) // Barre d'espace pour démarrer
+    {
+        printf("Démarrage du jeu...\n");
+        // Lancer ton jeu ici
+    }
+    return (0);
+}
+
+void display_mario_image(void *mlx, void *window)
+{
+    void *image;
+    int width, height;
+
+    // Charger l'image de Mario
+    image = mlx_xpm_file_to_image(mlx, "game/mario_non.xpm", &width, &height);
+    if (!image)
+    {
+        printf("Erreur lors du chargement de l'image.\n");
+        exit(0);
+    }
+
+    // Afficher l'image sur la fenêtre
+    mlx_put_image_to_window(mlx, window, image, 0, 0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	texture;
@@ -41,9 +68,10 @@ int	main(int argc, char **argv)
 	fill_map(argv[1], &texture);
 	check_map(&texture);
 	fill_struct(&texture, argv[1]);
-	// print_data(&texture);
-	// draw_wall(&texture);
-	draw_game(&texture);
+	display_mario_image(texture.mlx, texture.win);
+	sleep(2);
+	mlx_key_hook(texture.win, key_hook, NULL);
+	//draw_game(&texture);
 	mlx_hook(texture.win, 2, 1L << 0, key_press, &texture);   // Key down
 	mlx_hook(texture.win, 3, 1L << 1, key_release, &texture); // Key up
 	mlx_loop_hook(texture.mlx, update, &texture);             // Loop update

@@ -125,13 +125,16 @@ void draw_vertical_line(t_data *texture, int x, int drawStart, int drawEnd, int 
 
 void draw_wall(t_data *game)
 {
-    for (int x = 0; x < WIDTH; x++)
+	float x;
+
+	x = 0;
+    while (x < WIDTH)
     {
         float cameraX = 2 * x / (float)WIDTH - 1; // Camera plane coordinate
-        game->ddaX = game->dirX + game->planeX* cameraX;
+        game->ddaX = game->dirX + game->planeX * cameraX;
         game->ddaY = game->dirY + game->planeY * cameraX;
         float perpWallDist = dda(game);
-        int lineHeight = (int)(HEIGHT / perpWallDist) * 4;
+        int lineHeight = (int)(HEIGHT / (perpWallDist * 0.1));
         int drawStart = -lineHeight / 2 + HEIGHT / 2;
         if (drawStart < 0) 
 			drawStart = 0;
@@ -139,6 +142,7 @@ void draw_wall(t_data *game)
         if (drawEnd >= HEIGHT) 
 			drawEnd = HEIGHT - 1;
         draw_vertical_line(game, x, drawStart, drawEnd, 0xFF00CC); // Example color
+	x += 1;
     }
 }
 
@@ -155,28 +159,13 @@ void rotate_vector(t_data *texture, float angle_degrees)
 
 void	draw_game(t_data *texture)
 {
-
-
-	// int img_width = 500;
-	// int img_height = 367;
-	// texture->img = mlx_xpm_file_to_image(texture->mlx, "game/mario_non.xpm", &img_width, &img_height);
-	// if (!texture->img)
-	// {
-	// 	// Handle error if the image failed to load
-	// 	mlx_destroy_window(texture->mlx, texture->win);
-	// 	return ;
-	// }
-	// mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
-
-
-    	//sleep(1);
-	//mlx_destroy_window(texture->mlx, texture->win);
 	texture->ddaX = texture->dirX;
 	texture->ddaY = texture->dirY;
 	float i = -30;
 	mlx_destroy_image(texture->mlx, texture->img);
 	texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
 	put_background(texture);
+	draw_wall(texture); // test. added it for wall drawing
 	put_minimap(texture);
 	// put_square(texture, 16776960, 8, texture->x, texture->y); // personnage
 	draw_character(texture, texture->x * 32, texture->y * 32, 5, 16776960);
@@ -189,10 +178,7 @@ void	draw_game(t_data *texture)
 		line(texture);
 		i += 0.1;
 	}
-	draw_wall(texture); // test. added it for wall drawing
+	// draw_wall(texture); // test. added it for wall drawing
 	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
-	//////////////////////////////////////////////
-	//    SAD it didn't work :(
-	//mlx_destroy_image(texture->mlx, texture->img);
 
 }

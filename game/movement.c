@@ -27,40 +27,47 @@ int key_release(int keycode, t_data *data)
 
 int update(t_data *data)
 {
-	float moveSpeed;
-	double oldDirX;
+        float moveSpeed;
+        double oldDirX;
 
-	oldDirX = data->dirX;
-	moveSpeed = 0.015;
+        oldDirX = data->dirX;
+        moveSpeed = 0.015;
 
-	if (data->left)
-	{
-		data->dirX = data->dirX * cos(-moveSpeed) - data->dirY * sin(-moveSpeed);
-		data->dirY = oldDirX * sin(-moveSpeed) + data->dirY * cos(-moveSpeed);
-		data->planeX = -data->dirY * 0.66;
-		data->planeY = data->dirX * 0.66;
-	}
-	if (data->right)
-	{
-		data->dirX = data->dirX * cos(moveSpeed) - data->dirY * sin(moveSpeed);
-		data->dirY = oldDirX * sin(moveSpeed) + data->dirY * cos(moveSpeed);
-		data->planeX = -data->dirY * 0.66;
-		data->planeY = data->dirX * 0.66;
-	}
-	// Déplacement
-	if (data->w)
-	{
-		data->x += data->dirX * moveSpeed;
-		data->y += data->dirY * moveSpeed;
-	}
-	if (data->s)
-	{
-		data->x -= data->dirX * moveSpeed;
-		data->y -= data->dirY  * moveSpeed;
-	}
-	draw_game(data);
-	return (0);
+        // Rotation
+        if (data->left)
+        {
+            data->dirX = data->dirX * cos(-moveSpeed) - data->dirY * sin(-moveSpeed);
+            data->dirY = oldDirX * sin(-moveSpeed) + data->dirY * cos(-moveSpeed);
+            data->planeX = -data->dirY * 0.66;
+            data->planeY = data->dirX * 0.66;
+        }
+        if (data->right)
+        {
+            data->dirX = data->dirX * cos(moveSpeed) - data->dirY * sin(moveSpeed);
+            data->dirY = oldDirX * sin(moveSpeed) + data->dirY * cos(moveSpeed);
+            data->planeX = -data->dirY * 0.66;
+            data->planeY = data->dirX * 0.66;
+        }
+        
+        // Déplacement du joueur
+        if (data->w)
+        {
+            data->x += data->dirX * moveSpeed;
+            data->y += data->dirY * moveSpeed;
+        }
+        if (data->s)
+        {
+            data->x -= data->dirX * moveSpeed;
+            data->y -= data->dirY * moveSpeed;
+        }
+
+        // Appelle la fonction qui dessine le jeu (raycasting, murs, personnage...)
+        draw_game(data);
+    return (0);
 }
+
+
+
 
 // int update(t_data *data)
 // {
