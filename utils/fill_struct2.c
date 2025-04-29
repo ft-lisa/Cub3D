@@ -43,13 +43,29 @@ void	fill_mlx(t_data *texture)
 void	fill_angle(t_data *texture, char lettre)
 {
 	if (lettre == 'N')
-		texture->angle = ANG_NORTH;
+	{
+		texture->dirX = 0;
+		texture->dirY = -1;
+	}
+		
 	if (lettre == 'S')
-		texture->angle = ANG_SOUTH;
+	{
+		texture->dirX = 0;
+		texture->dirY = 1;
+	}
 	if (lettre == 'W')
-		texture->angle = ANG_WEST;
+	{
+		texture->dirX = -1;
+		texture->dirY = 0;
+	}
 	if (lettre == 'E')
-		texture->angle = ANG_EAST;
+	{
+		texture->dirX = 1;
+		texture->dirY = 0;
+	}
+	texture->planeX = -texture->dirY * 0.66;
+	texture->planeY = texture->dirX * 0.66;
+
 }
 
 void	fill_pos(t_data *texture)
@@ -69,7 +85,7 @@ void	fill_pos(t_data *texture)
 			{
 				texture->x = j + 0.5;
 				texture->y = i + 0.5;
-				fill_angle(texture, texture->map[i]);
+				fill_angle(texture, texture->game_map[i][j]);
 			}
 			j++;
 		}

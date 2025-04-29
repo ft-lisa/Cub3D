@@ -14,7 +14,7 @@
 # define ERR_MUCH_TEX "It's necessary ONE texture for NO, SO, EA and WE\n"
 # define ERR_MISS_COL "It's necessary a color for F and C\n"
 # define ERR_MUCH_COL "It's necessary ONE color for F and C\n"
-# define ERR_CHAR "The map must consist of only these 6 characters: 0, 1, N, S, W, E\n"
+# define ERR_CHAR "Map must contain only: 0, 1, N, S, W, E\n"
 # define ERR_SPAWN "The map must contain a N, S, W or E\n"
 # define ERR_MULT_SPAWN "The map must contain one N, S, W or E\n"
 # define ERR_EMPTY "There is in the map an empty line\n"
@@ -22,12 +22,12 @@
 
 typedef struct s_element
 {
-    int no;
-    int so;
-    int we;
-    int ea;
-    int f;
-    int c;
-}	                    t_element;
+	int	no;
+	int	so;
+	int	we;
+	int	ea;
+	int	f;
+	int	c;
+}		t_element;
 
 #endif

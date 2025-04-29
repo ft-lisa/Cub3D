@@ -1,60 +1,70 @@
 #include "cub3d.h"
 #include <stdio.h>
 
-void	print_data(t_data *data)
-{
-	int	i;
+// void print_game_data(t_data *game)
+// {
+//     // Affichage des informations de la carte
+//     printf("Map: %s\n", game->map);
+//     printf("Size of map: %d\n", game->size_map);
 
-	i = 0;
-	printf("Map: %s\n", data->map ? data->map : "null");
-	printf("North: %s\n", data->north ? "loaded" : "null");
-	printf("South: %s\n", data->south ? "loaded" : "null");
-	printf("East: %s\n", data->east ? "loaded" : "null");
-	printf("West: %s\n", data->west ? "loaded" : "null");
-	printf("MLX: %s\n", data->mlx ? "init" : "null");
-	printf("Win: %s\n", data->win ? "open" : "null");
-	printf("Color Floor: %d\n", data->color_floor);
-	printf("Color Ceiling: %d\n", data->color_ceilling);
-	printf("Position X: %.2f\n", data->x);
-	printf("Position Y: %.2f\n", data->y);
-	if (data->game_map)
+//     // Affichage des images
+//     printf("North texture: %p\n", game->north);
+//     printf("South texture: %p\n", game->south);
+//     printf("East texture: %p\n", game->east);
+//     printf("West texture: %p\n", game->west);
+
+//     // Affichage des informations de la fenêtre et mlx
+//     printf("MLX pointer: %p\n", game->mlx);
+//     printf("Window pointer: %p\n", game->win);
+
+//     // Affichage des informations de l'image
+//     printf("Image pointer: %p\n", game->img);
+//     printf("Image pointer (raw): %p\n", game->img_ptr);
+//     printf("Bits per pixel: %d\n", game->bits_per_pixel);
+//     printf("Line length: %d\n", game->line_length);
+//     printf("Endian: %d\n", game->endian);
+
+//     // Affichage des couleurs
+//     printf("Floor color: %d\n", game->color_floor);
+//     printf("Ceiling color: %d\n", game->color_ceilling);
+
+//     // Affichage des informations sur le joueur
+//     printf("Player position (x, y): %.2f, %.2f\n", game->x, game->y);
+//     printf("Player direction (dirX, dirY): %.2f, %.2f\n", game->dirX,
+//	game->dirY);
+//     printf("Player DDA (ddaX, ddaY): %.2f, %.2f\n", game->ddaX, game->ddaY);
+//     printf("Player plane (planeX, planeY): %.2f, %.2f\n", game->planeX,
+//	game->planeY);
+//     printf("Player angle: %.2f\n", game->angle);
+
+//     // Affichage des touches
+//     printf("Key W: %d\n", game->w);
+//     printf("Key S: %d\n", game->s);
+//     printf("Key A: %d\n", game->a);
+//     printf("Key D: %d\n", game->d);
+//     printf("Key Left: %d\n", game->left);
+//     printf("Key Right: %d\n", game->right);
+// }
+
+int	display_mario_image(void *mlx, void *window)
+{
+	void	*image;
+	int		width;
+	int		height;
+
+	image = mlx_xpm_file_to_image(mlx, "game/mario_non.xpm", &width, &height);
+	if (!image)
 	{
-		while (data->game_map[i])
-		{
-			printf("%s\n", data->game_map[i]);
-			i++;
-		}
+		printf("Erreur lors du chargement de l'image.\n");
+		return (0);
 	}
-	else
-		printf("Game Map: null\n");
+	mlx_put_image_to_window(mlx, window, image, width / 2 + 180, height / 2);
+	return (1);
 }
 
-int key_hook(int keycode)
-{
-    if (keycode == 32) // Barre d'espace pour démarrer
-    {
-        printf("Démarrage du jeu...\n");
-        // Lancer ton jeu ici
-    }
-    return (0);
-}
-
-void display_mario_image(void *mlx, void *window)
-{
-    void *image;
-    int width, height;
-
-    // Charger l'image de Mario
-    image = mlx_xpm_file_to_image(mlx, "game/mario_non.xpm", &width, &height);
-    if (!image)
-    {
-        printf("Erreur lors du chargement de l'image.\n");
-        exit(0);
-    }
-
-    // Afficher l'image sur la fenêtre
-    mlx_put_image_to_window(mlx, window, image, 0, 0);
-}
+// faire les couleurs
+// implementer la croix
+// faire les couleurs sol et ciel
 
 int	main(int argc, char **argv)
 {
@@ -68,13 +78,12 @@ int	main(int argc, char **argv)
 	fill_map(argv[1], &texture);
 	check_map(&texture);
 	fill_struct(&texture, argv[1]);
-	display_mario_image(texture.mlx, texture.win);
-	sleep(2);
-	mlx_key_hook(texture.win, key_hook, NULL);
-	//draw_game(&texture);
-	mlx_hook(texture.win, 2, 1L << 0, key_press, &texture);   // Key down
-	mlx_hook(texture.win, 3, 1L << 1, key_release, &texture); // Key up
-	mlx_loop_hook(texture.mlx, update, &texture);             // Loop update
+	//print_game_data(&texture);
+	if (display_mario_image(texture.mlx, texture.win))
+		sleep(1);
+	mlx_hook(texture.win, 2, 1L << 0, key_press, &texture);
+	mlx_hook(texture.win, 3, 1L << 1, key_release, &texture);
+	mlx_loop_hook(texture.mlx, update, &texture);
 	mlx_loop(texture.mlx);
 	return (0);
 }

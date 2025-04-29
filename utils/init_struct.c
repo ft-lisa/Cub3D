@@ -28,10 +28,13 @@ t_data init_list(void)
 	texture.color_floor = -1;
     texture.x = 0;
     texture.y = 0;
-    texture.dirX = 1;
+    texture.dirX = 0;
     texture.dirY = 0;
+    texture.ddaX = 0;
+    texture.ddaY = 0;
+    texture.planeX = 0;
+    texture.planeY = 0;
     texture.angle = (PI);
-	//
 	texture.w = 0;
 	texture.s = 0;
 	texture.a = 0;
