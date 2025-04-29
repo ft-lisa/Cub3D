@@ -51,54 +51,72 @@ void fill_map(char* file, t_data* tex)
         copy_map(fd, tex);
 }
 
+void    swap_n_to_z(char *line)
+{
+        int     i;
+
+        i = 0;
+        while (line[i] != '\n' && line[i] != '\0')
+                i++;
+        if (line[i] == '\n')
+                line[i] = 0;
+}
 
 void fill_texture(char* line, t_data* texture)
 {
         int height;
+        char* ori_line;
+        (void)texture;
 
+        display_mario_image(texture->mlx, texture->win);
+        ori_line = line;
         height = 0;
         if (ft_strlen(line) < 3)
                 return;
-        if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ' )
+        line = line + 3;
+        line = pass_space(line);
+        swap_n_to_z(line);
+
+        if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ' )
                 texture->north = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
-        else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ' )
+        else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ' )
                 texture->south = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
-        else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ' )
+        else if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ' )
                 texture->west = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
-        else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ' )
+        else if (ori_line[0] == 'E' && ori_line[1] == 'A' && ori_line[2] == ' ' )
                 texture->east = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
 }
 
 void fill_color(char* line, t_data* texture)
 {
-        // int floor;
-        // int red;
-        // int blue;
-        // int green;
+        int floor;
+        int red;
+        int blue;
+        int green;
 		(void)texture;
 
-        // floor = 0;
-        // if (line[0] == 'C')
-        //         floor = 1;
-        // if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
-        // {
+        floor = 0;
+        if (line[0] == 'C')
+                floor = 1;
+        if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
+        {
                  line++;
-        //         line = pass_space(line);
-        //         red = atoi(line);
-        //         while(*line != ',')
-        //                 line++;
-        //         line++;
-        //         green = atoi(line);
-        //         while(*line != ',')
-        //                 line++;
-        //         line++;
-        //         blue = atoi(line);
-        //         // printf("r: %d, g: %d, b: %d\n", red, green, blue);
-        // }
-//         if (floor)
-//                 texture->color_floor = (red << 16) | (green << 8) | blue;
-//         else
-//                 texture->color_ceilling = (red << 16) | (green << 8) | blue;   
+                line = pass_space(line);
+                red = atoi(line);
+                while(*line != ',')
+                        line++;
+                line++;
+                green = atoi(line);
+                while(*line != ',')
+                        line++;
+                line++;
+                blue = atoi(line);
+                printf("r: %d, g: %d, b: %d\n", red, green, blue);
+        }
+        if (floor)
+                texture->color_floor = (red << 16) | (green << 8) | blue;
+        else
+                texture->color_ceilling = (red << 16) | (green << 8) | blue;   
 }
 
 int line_len(char* map, int i)

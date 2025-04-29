@@ -155,6 +155,7 @@ double		dda(t_data *game);
 void		ray_loop(t_ray *ray, t_data *game);
 void		init_ray(t_ray *ray, t_data *game);
 void		draw_wall(t_data *game);
+int	display_mario_image(void *mlx, void *window);
 void		rotate_vector(t_data *texture, float angle_degrees);
 
 #endif

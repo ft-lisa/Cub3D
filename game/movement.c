@@ -41,12 +41,11 @@ int	update(t_data *data)
 {
 	float	moveSpeed;
 	double	oldDirX;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
 	oldDirX = data->dirX;
 	moveSpeed = 0.015;
-	// Rotation
 	if (data->left)
 	{
 		data->dirX = data->dirX * cos(-moveSpeed) - data->dirY
@@ -62,8 +61,7 @@ int	update(t_data *data)
 		data->planeX = -data->dirY * 0.66;
 		data->planeY = data->dirX * 0.66;
 	}
-	// Déplacement du joueur
-	if (data->w && dda(data) > 4)
+	if (data->w)
 	{
 		x = data->x + data->dirX * moveSpeed;
 		y = data->y + data->dirY * moveSpeed;
@@ -73,9 +71,7 @@ int	update(t_data *data)
 			data->y += data->dirY * moveSpeed;
 		}
 	}
-	data->ddaX = -data->ddaX;
-	data->ddaY = -data->ddaY;
-	if (data->s && dda(data) > 4)
+	if (data->s)
 	{
 		x = data->x - data->dirX * moveSpeed;
 		y = data->y - data->dirY * moveSpeed;

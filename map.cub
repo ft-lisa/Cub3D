@@ -1,7 +1,7 @@
-EA ./path_to_the_east_texture
-NO  ./path_to_the_north_texture
-SO  ./path_to_the_south_texture
-WE    ./path_to_the_west_texture
+EA ./bg.xpm
+NO  ./frog.xpm
+SO  ./ayman.xpm
+WE   ./24.xpm
 
 F 220,100,43
 C  20,30,0
@@ -18,6 +18,6 @@ C  20,30,0
 101000001
 100000001
 100000101
+100N00001
 100000001
-1000000W1
 111111111
