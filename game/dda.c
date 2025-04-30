@@ -45,20 +45,19 @@ void ray_loop(t_ray* ray, t_data* game)
 	}
 }
 
-double	dda(t_data *game)
+double	dda(t_data *game, t_ray* ray)
 {
-	t_ray ray;
 
-	ray.perpWallDist = 0;
-	ray.deltaDistX = fabs(1 / game->ddaX);					// de combien de distance on avance a chaque fois qu'on veut un entier
-	ray.deltaDistY = fabs(1 / game->ddaY);
-	ray.hit = 0;
-	ray.x = (int)game->x;
-	ray.y = (int)game->y;
-	init_ray(&ray, game);
-	ray_loop(&ray, game);
-	if (ray.side == 0)
-		return ((ray.sideDistX - ray.deltaDistX) * CUB_SIZE);
+	ray->perpWallDist = 0;
+	ray->deltaDistX = fabs(1 / game->ddaX);					// de combien de distance on avance a chaque fois qu'on veut un entier
+	ray->deltaDistY = fabs(1 / game->ddaY);
+	ray->hit = 0;
+	ray->x = (int)game->x;
+	ray->y = (int)game->y;
+	init_ray(ray, game);
+	ray_loop(ray, game);
+	if (ray->side == 0)
+		return ((ray->sideDistX - ray->deltaDistX) * CUB_SIZE);
 	else
-		return ((ray.sideDistY - ray.deltaDistY) * CUB_SIZE);
+		return ((ray->sideDistY - ray->deltaDistY) * CUB_SIZE);
 }

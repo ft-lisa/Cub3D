@@ -34,12 +34,22 @@ typedef struct s_data
 	char	*map;
 	char	**game_map;
 	void	*north;
+	int	heightnorth;
+	int	widthnorth;
 	void	*south;
+	int	heighsouth;
+	int	widthsouth;
 	void	*east;
+	int	heighteast;
+	int	widtheast;
 	void	*west;
+	int	heightweast;
+	int	widthwest;
 	void	*mlx;
 	void	*win;
 	int		size_map;
+	int	wallX;
+
 
 	// pixel
 	void	*img;
@@ -151,7 +161,7 @@ void		draw_character(t_data *texture, int center_x, int center_y,
 
 /* ray_casting */
 
-double		dda(t_data *game);
+double		dda(t_data *game, t_ray *ray);
 void		ray_loop(t_ray *ray, t_data *game);
 void		init_ray(t_ray *ray, t_data *game);
 void		draw_wall(t_data *game);

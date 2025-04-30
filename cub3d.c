@@ -62,9 +62,8 @@ int	display_mario_image(void *mlx, void *window)
 	return (1);
 }
 
-// faire les couleurs
+
 // implementer la croix
-// faire les couleurs sol et ciel
 
 int	main(int argc, char **argv)
 {

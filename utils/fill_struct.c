@@ -64,27 +64,43 @@ void    swap_n_to_z(char *line)
 
 void fill_texture(char* line, t_data* texture)
 {
-        int height;
+        int height = 0;
+        int widht = 0;
         char* ori_line;
         (void)texture;
 
         display_mario_image(texture->mlx, texture->win);
         ori_line = line;
-        height = 0;
         if (ft_strlen(line) < 3)
                 return;
         line = line + 3;
         line = pass_space(line);
         swap_n_to_z(line);
-
         if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ' )
-                texture->north = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
+        {
+                texture->north = mlx_xpm_file_to_image(texture->mlx, line, &widht, &height);
+                texture->widthnorth = widht;
+                texture->heightnorth = height;
+        }        
         else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ' )
+        {
                 texture->south = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
+                texture->widthsouth = widht;
+                texture->heighsouth = height;
+        }
         else if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ' )
+        {
                 texture->west = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
+                texture->widthwest = widht;
+                texture->heightweast = height;
+        }
         else if (ori_line[0] == 'E' && ori_line[1] == 'A' && ori_line[2] == ' ' )
+        {
                 texture->east = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
+                texture->widtheast = widht;
+                texture->heighteast = height;
+        }
+        
 }
 
 void fill_color(char* line, t_data* texture)
