@@ -47,7 +47,6 @@ void	fill_angle(t_data *texture, char lettre)
 		texture->dirX = 0;
 		texture->dirY = -1;
 	}
-		
 	if (lettre == 'S')
 	{
 		texture->dirX = 0;
@@ -65,7 +64,6 @@ void	fill_angle(t_data *texture, char lettre)
 	}
 	texture->planeX = -texture->dirY * 0.66;
 	texture->planeY = texture->dirX * 0.66;
-
 }
 
 void	fill_pos(t_data *texture)
@@ -91,7 +89,7 @@ void	fill_pos(t_data *texture)
 		}
 		i++;
 	}
-        texture->size_map = i;
+	texture->size_map = i;
 }
 
 int	check_all_fill(t_data *texture)

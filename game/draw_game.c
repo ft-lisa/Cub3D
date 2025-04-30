@@ -108,6 +108,44 @@ void	put_background(t_data *texture)
 	}
 }
 
+void	put_floor(t_data *texture)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = HEIGHT / 2;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(texture, x, y, texture->color_floor);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	put_ceil(t_data *texture)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(texture, x, y, texture->color_ceilling);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	put_minimap(t_data *texture)
 {
 	int	i;
@@ -131,12 +169,12 @@ void	put_minimap(t_data *texture)
 		16776960);
 }
 
-void init_side(t_ray *ray, t_data *game)
+void	init_side(t_ray *ray, t_data *game)
 {
 	if (game->ddaX < 0)
 	{
-		ray->stepX = -1;						// dans map_game vers ou on va
-		ray->sideDistX = (game->x - ray->x) * ray->deltaDistX;		// combien il manque pour aller de notre float x -> int x
+		ray->stepX = -1;	// dans map_game vers ou on va
+		ray->sideDistX = (game->x - ray->x) * ray->deltaDistX;	// combien il manque pour aller de notre float x -> int x
 	}
 	else
 	{
@@ -155,14 +193,14 @@ void init_side(t_ray *ray, t_data *game)
 	}
 }
 
-void side_loop(t_ray* ray, t_data* game)
+void	side_loop(t_ray* ray, t_data* game)
 {
 	while (ray->hit == 0)
 	{
 		if (ray->sideDistX < ray->sideDistY)
 		{
-			ray->sideDistX += ray->deltaDistX;			// prochaine fois qu'on touche les lignes verticales 
-			ray->x = ray->x + ray->stepX;				// avance de un vers ou on va dans map_game
+			ray->sideDistX += ray->deltaDistX;	// prochaine fois qu'on touche les lignes verticales 
+			ray->x = ray->x + ray->stepX;	// avance de un vers ou on va dans map_game
 			ray->side = 0;
 		}
 		else
@@ -178,10 +216,10 @@ void side_loop(t_ray* ray, t_data* game)
 
 double	side_of_wall(t_data *game)
 {
-	t_ray ray;
+	t_ray	ray;
 
 	ray.perpWallDist = 0;
-	ray.deltaDistX = fabs(1 / game->ddaX);					// de combien de distance on avance a chaque fois qu'on veut un entier
+	ray.deltaDistX = fabs(1 / game->ddaX);	// de combien de distance on avance a chaque fois qu'on veut un entier
 	ray.deltaDistY = fabs(1 / game->ddaY);
 	ray.hit = 0;
 	ray.x = (int)game->x;
@@ -191,28 +229,28 @@ double	side_of_wall(t_data *game)
 	if (ray.side == 0 && game->x < ray.x)
 		return (EAST);
 	else if (ray.side == 0 && game->x > ray.x)
-		return(WEST);
-	if(game->y < ray.y)
-		return(NORTH);
+		return (WEST);
+	if (game->y < ray.y)
+		return (NORTH);
 	else
 		return (SOUTH);
 }
 
 void	draw_vertical_line(t_data *texture, int x, int drawStart, int drawEnd)
 {
-	int side;
+	int	side;
 	int	y;
-	int color;
-	
+	int	color;
+
 	side = side_of_wall(texture);
 	y = drawStart;
 	if (side == NORTH)
 		color = 0xff5834;
-	else if(side == SOUTH)
+	else if (side == SOUTH)
 		color = 0x34ff39;
-	else if(side == WEST)
+	else if (side == WEST)
 		color = 0x34a6ff;
-	else if(side == EAST)
+	else if (side == EAST)
 		color = 0xfc34ff;
 	while (y <= drawEnd)
 	{
@@ -228,7 +266,7 @@ void	draw_wall(t_data *game)
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
-	float cameraX;
+	float	cameraX;
 
 	x = 0;
 	while (x < WIDTH)
@@ -265,7 +303,9 @@ void	draw_game(t_data *texture)
 {
 	mlx_destroy_image(texture->mlx, texture->img);
 	texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
-	put_background(texture);
+	// put_background(texture);
+	put_floor(texture);
+	put_ceil(texture);
 	draw_wall(texture);
 	put_minimap(texture);
 	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);

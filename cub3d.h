@@ -9,6 +9,8 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 # define WIDTH 1366
 # define HEIGHT 768
@@ -131,6 +133,9 @@ char		*ft_strjoin(char const *s1, char const *s2);
 int			len_line(char *map, int i);
 int			where_in_line(char *map, int i);
 char		**ft_split(char const *s, char c);
+
+int	close_handler(t_data *data);
+
 
 /* movement */
 

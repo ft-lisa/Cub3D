@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void init_ray(t_ray *ray, t_data *game)
+void	init_ray(t_ray *ray, t_data *game)
 {
 	if (game->ddaX < 0)
 	{
@@ -24,14 +24,14 @@ void init_ray(t_ray *ray, t_data *game)
 	}
 }
 
-void ray_loop(t_ray* ray, t_data* game)
+void	ray_loop(t_ray *ray, t_data *game)
 {
 	while (ray->hit == 0)
 	{
 		if (ray->sideDistX < ray->sideDistY)
 		{
-			ray->sideDistX += ray->deltaDistX;			// prochaine fois qu'on touche les lignes verticales 
-			ray->x = ray->x + ray->stepX;				// avance de un vers ou on va dans map_game
+			ray->sideDistX += ray->deltaDistX;	// prochaine fois qu'on touche les lignes verticales 
+			ray->x = ray->x + ray->stepX;	// avance de un vers ou on va dans map_game
 			ray->side = 0;
 		}
 		else
@@ -47,7 +47,7 @@ void ray_loop(t_ray* ray, t_data* game)
 
 double	dda(t_data *game)
 {
-	t_ray ray;
+	t_ray	ray;
 
 	ray.perpWallDist = 0;
 	ray.deltaDistX = fabs(1 / game->ddaX);					// de combien de distance on avance a chaque fois qu'on veut un entier

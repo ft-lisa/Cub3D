@@ -1,9 +1,21 @@
 #include "../cub3d.h"
 
+int	close_handler(t_data *data)
+{
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(EXIT_SUCCESS);
+}
+
 int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307) // ESC
-		exit(0);
+		close_handler(data);
+		// exit(0);
+	// if (keycode == XK_Escape)
+		// close_handler(data);
 	if (keycode == 119)
 		data->w = 1;
 	if (keycode == 115)
