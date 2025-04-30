@@ -57,7 +57,8 @@ double	dda(t_data *game, t_ray* ray)
 	init_ray(ray, game);
 	ray_loop(ray, game);
 	if (ray->side == 0)
-		return ((ray->sideDistX - ray->deltaDistX) * CUB_SIZE);
+		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
-		return ((ray->sideDistY - ray->deltaDistY) * CUB_SIZE);
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
+	return(ray->perpWallDist * CUB_SIZE);
 }

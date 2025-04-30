@@ -134,30 +134,107 @@ void	put_minimap(t_data *texture)
 
 void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int drawEnd)
 {
-	int	y;
-	int color;
+	int		y;
+	int		texX, texY;
+	int		color;
+	double	step;
+	double	texPos;
+	void	*tex;
+	int		texWidth;
+	int		texHeight;
+	int bpp, line_length, endian;
 	
 	y = drawStart;
 	if (ray->side == 0)
 	{
 		if (texture->x < ray->x)
-			color = 0xfc34ff; // rose
+		{
+			tex = texture->east;
+			texWidth = texture->widtheast;
+			texHeight = texture->heighteast;
+		}
 		else
-			color = 0x34a6ff; // bleu
+		{
+			tex = texture->east;
+			texWidth = texture->widtheast;
+			texHeight = texture->heighteast;	
+		}
 	}
 	else
 	{
 		if (texture->y < ray->y)
-			color = 0xff5834; // orange
+		{
+			tex = texture->east;
+			texWidth = texture->widtheast;
+			texHeight = texture->heighteast;	
+		}
 		else
-			color = 0x34ff39; // vert
-	}
-	while (y <= drawEnd)
-	{
-		my_mlx_pixel_put(texture, x, y, color);
-		y++;
+		{
+			tex = texture->east;
+			texWidth = texture->widtheast;
+			texHeight = texture->heighteast;
+		}
 	}
 
+	printf("perpWallDist = %f\n", ray->perpWallDist);
+	printf("H : %d, W: %d",texHeight, texWidth);
+    // Calculer la position du mur
+    double wallX;
+    if (ray->side == 0)
+        wallX = ray->y + ray->perpWallDist * texture->ddaY;
+    else
+        wallX = ray->x + ray->perpWallDist * texture->ddaX;
+
+    wallX -= floor(wallX);
+    texX = (int)(wallX * (double)texWidth);
+
+    // Ajuster l'orientation de la texture si nécessaire
+    if ((ray->side == 0 && ray->x > texture->x) || (ray->side == 1 && ray->y < texture->y))
+        texX = texWidth - texX - 1;
+
+    // Limiter texX pour ne pas sortir des bornes
+    if (texX < 0) texX = 0;
+    if (texX >= texWidth) texX = texWidth - 1;
+
+    printf("wallX = %f, texX = %d\n", wallX, texX);
+
+    // Calcul de texPos et de l'avancement de la texture sur la ligne
+    step = 1.0 * texHeight / (drawEnd - drawStart);
+    texPos = (drawStart - HEIGHT / 2 + (drawEnd - drawStart) / 2) * step;
+
+    // Récupérer les données de la texture
+    char *data = mlx_get_data_addr(tex, &bpp, &line_length, &endian);
+    if (!data)
+    {
+        printf("Erreur : donnée de texture non valide !\n");
+        exit(1);
+    }
+
+    // Dessiner chaque pixel sur la ligne
+    while (y < drawEnd)
+    {
+        texY = (int)texPos;
+        if (texY >= texHeight) texY = texHeight - 1;
+        if (texY < 0) texY = 0;
+        
+        texPos += step;
+
+        // Calculer l'offset et vérifier s'il est correct
+        int offset = texY * line_length + texX * (bpp / 8);
+
+        // Vérifier si l'offset est valide
+        if (texX < 0 || texX >= texWidth || texY < 0 || texY >= texHeight)
+        {
+          //  printf("Erreur d'indice de texture: texX = %d, texY = %d\n", texX, texY);
+            break;  // Sortir si l'indice est invalide
+        }
+
+        // Récupérer la couleur du pixel
+        color = *(unsigned int *)(data + offset);
+
+        my_mlx_pixel_put(texture, x, y, color);
+        y++;
+    }
 }
 
 void	draw_wall(t_data *game)
