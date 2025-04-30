@@ -176,14 +176,18 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
 		}
 	}
 
-	printf("perpWallDist = %f\n", ray->perpWallDist);
-	printf("H : %d, W: %d",texHeight, texWidth);
+	// printf("perpWallDist = %f\n", ray->perpWallDist);
+	// printf("H : %d, W: %d",texHeight, texWidth);
     // Calculer la position du mur
     double wallX;
-    if (ray->side == 0)
-        wallX = ray->y + ray->perpWallDist * texture->ddaY;
-    else
-        wallX = ray->x + ray->perpWallDist * texture->ddaX;
+    // if (ray->side == 0)
+    //     wallX = ray->y + ray->perpWallDist * texture->ddaY;
+    // else
+    //     wallX = ray->x + ray->perpWallDist * texture->ddaX;
+	if (ray->side == 0)
+		wallX = texture->y + ray->perpWallDist * texture->ddaY;
+	else
+		wallX = texture->x + ray->perpWallDist * texture->ddaX;
 
     wallX -= floor(wallX);
     texX = (int)(wallX * (double)texWidth);
@@ -196,7 +200,7 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
     if (texX < 0) texX = 0;
     if (texX >= texWidth) texX = texWidth - 1;
 
-    printf("wallX = %f, texX = %d\n", wallX, texX);
+    // printf("wallX = %f, texX = %d\n", wallX, texX);
 
     // Calcul de texPos et de l'avancement de la texture sur la ligne
     step = 1.0 * texHeight / (drawEnd - drawStart);
@@ -253,8 +257,16 @@ void	draw_wall(t_data *game)
 		cameraX = 2 * x / (float)WIDTH - 1;
 		game->ddaX = game->dirX + game->planeX * cameraX;
 		game->ddaY = game->dirY + game->planeY * cameraX;
+		// cameraX = 2 * x / (float)WIDTH - 1;
+		// game->ddaX = game->dirX + game->planeX * cameraX;
+		// game->ddaY = game->dirY + game->planeY * cameraX;
+
+		// float ray_length = dda(game, &ray);
+		// perpWallDist = ray_length * (game->dirX * game->ddaX + game->dirY * game->ddaY)
+        //                          / (sqrt(game->ddaX * game->ddaX + game->ddaY * game->ddaY));
+
 		perpWallDist = dda(game, &ray);
-		lineHeight = (int)(HEIGHT / (perpWallDist * 0.1));
+		lineHeight = (int)(HEIGHT / (ray.perpWallDist + 0.0001)); // avoid division by 0
 		drawStart = -lineHeight / 2 + HEIGHT / 2;
 		if (drawStart < 0)
 			drawStart = 0;

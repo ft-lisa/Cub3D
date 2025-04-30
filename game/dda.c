@@ -60,5 +60,5 @@ double	dda(t_data *game, t_ray* ray)
 		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
 	else
 		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-	return(ray->perpWallDist * CUB_SIZE);
+	return(ray->perpWallDist);
 }
