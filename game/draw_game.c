@@ -213,27 +213,7 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
 			texHeight = texture->heighteast;
 		}
 	}
-// 	    printf("=== Debug Raycasting ===\n");
-// printf("ray->side       = %d\n", ray->side);
-// printf("ray->x          = %d\n", ray->x);
-// printf("ray->y          = %d\n", ray->y);
-// printf("ray->perpWallDist = %f\n", ray->perpWallDist);
-// printf("texture->x      = %f\n", texture->x);
-// printf("texture->y      = %f\n", texture->y);
-// printf("texture->ddaX   = %f\n", texture->ddaX);
-// printf("texture->ddaY   = %f\n", texture->ddaY);
-// printf("texWidth        = %d\n", texWidth);
-// printf("texHeight       = %d\n", texHeight);
-// printf("drawStart       = %d\n", drawStart);
-// printf("drawEnd         = %d\n", drawEnd);
-// printf("HEIGHT          = %d\n", HEIGHT);
-// printf("wallX (fract)   = %f\n", wallX);
-// printf("texX            = %d\n", texX);
-// printf("step            = %f\n", step);
-// printf("texPos          = %f\n", texPos);
-// printf("bpp             = %d\n", bpp);
-// printf("line_length     = %d\n", line_length);
-// printf("endian          = %d\n", endian);
+	double lineHeight = HEIGHT / ray->perpWallDist;
     double wallX;
 	if (ray->side == 0)
 		wallX = texture->y + ray->perpWallDist * texture->ddaY;
@@ -242,12 +222,8 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
 
     wallX -= floor(wallX);
     texX = (int)(wallX * (double)texWidth);
-    if ((ray->side == 0 && ray->x > texture->x) || (ray->side == 1 && ray->y < texture->y))
-        texX = texWidth - texX - 1;
-    if (texX < 0) texX = 0;
-    if (texX >= texWidth) texX = texWidth - 1;
-    step = 1.0 * texHeight / (drawEnd - drawStart);
-    texPos = (drawStart - HEIGHT / 2 + (drawEnd - drawStart) / 2) * step;
+    step = 1.0 * texHeight / (lineHeight);
+    texPos = (drawStart - (-lineHeight / 2 + HEIGHT / 2)) * step;
     char *data = mlx_get_data_addr(tex, &bpp, &line_length, &endian);
     if (!data)
     {
@@ -275,7 +251,6 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
 void	draw_wall(t_data *game)
 {
 	float	x;
-	float	perpWallDist;
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
@@ -288,16 +263,8 @@ void	draw_wall(t_data *game)
 		cameraX = 2 * x / (float)WIDTH - 1;
 		game->ddaX = game->dirX + game->planeX * cameraX;
 		game->ddaY = game->dirY + game->planeY * cameraX;
-		// cameraX = 2 * x / (float)WIDTH - 1;
-		// game->ddaX = game->dirX + game->planeX * cameraX;
-		// game->ddaY = game->dirY + game->planeY * cameraX;
-
-		// float ray_length = dda(game, &ray);
-		// perpWallDist = ray_length * (game->dirX * game->ddaX + game->dirY * game->ddaY)
-        //                          / (sqrt(game->ddaX * game->ddaX + game->ddaY * game->ddaY));
-
-		perpWallDist = dda(game, &ray);
-		lineHeight = (int)(HEIGHT / (ray.perpWallDist + 0.0001)); // avoid division by 0
+		dda(game, &ray);
+		lineHeight = (int)(HEIGHT / (ray.perpWallDist)); // avoid division by 0
 		drawStart = -lineHeight / 2 + HEIGHT / 2;
 		if (drawStart < 0)
 			drawStart = 0;

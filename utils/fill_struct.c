@@ -112,7 +112,8 @@ void fill_color(char* line, t_data* texture)
 		(void)texture;
 
         floor = 0;
-        if (line[0] == 'C')
+        line = pass_space(line);
+        if (line[0] == 'F')
                 floor = 1;
         if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
         {
@@ -127,8 +128,9 @@ void fill_color(char* line, t_data* texture)
                         line++;
                 line++;
                 blue = atoi(line);
-                printf("r: %d, g: %d, b: %d\n", red, green, blue);
         }
+        else
+                return ;
         if (floor)
                 texture->color_floor = (red << 16) | (green << 8) | blue;
         else
