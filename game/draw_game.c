@@ -109,6 +109,44 @@ void	put_background(t_data *texture)
 	}
 }
 
+void	put_floor(t_data *texture)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = HEIGHT / 2;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(texture, x, y, texture->color_floor);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	put_ceil(t_data *texture)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(texture, x, y, texture->color_ceilling);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	put_minimap(t_data *texture)
 {
 	int	i;
@@ -287,7 +325,9 @@ void	draw_game(t_data *texture)
 {
 	mlx_destroy_image(texture->mlx, texture->img);
 	texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
-	put_background(texture);
+	// put_background(texture);
+	put_ceil(texture);
+	put_floor(texture);
 	draw_wall(texture);
 	put_minimap(texture);
 	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);

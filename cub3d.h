@@ -9,6 +9,8 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <unistd.h>
+# include <X11/keysym.h> // for keycodes / CROSS EXIT SHIN  
+# include <X11/X.h> // for X11 keycodes  / CROSS EXIT SHIN
 
 # define WIDTH 1366
 # define HEIGHT 768
@@ -147,6 +149,7 @@ char		**ft_split(char const *s, char c);
 int			update(t_data *data);
 int			key_release(int keycode, t_data *data);
 int			key_press(int keycode, t_data *data);
+int	close_handler(t_data *data);
 
 /* draw_game */
 
