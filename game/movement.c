@@ -1,21 +1,64 @@
 #include "../cub3d.h"
 
-int	close_handler(t_data *data)
+void	free_game_map(char **map)
 {
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(EXIT_SUCCESS);
+	if (!map)
+		return;
+	for (int i = 0; map[i]; i++)
+		free(map[i]);
+	free(map);
+}
+
+int	free_data(t_data *game)
+{
+	(void)game;
+	// if (!game)
+	// 	return(1);
+
+	// // Libération du tableau de la carte
+	// if (game->map)
+	// 	free(game->map);
+	// if (game->game_map)
+	// 	free_game_map(game->game_map);
+
+	// // Destruction des textures (images)
+	// if (game->north)
+	// 	mlx_destroy_image(game->mlx, game->north);
+	// if (game->south)
+	// 	mlx_destroy_image(game->mlx, game->south);
+	// if (game->east)
+	// 	mlx_destroy_image(game->mlx, game->east);
+	// if (game->west)
+	// 	mlx_destroy_image(game->mlx, game->west);
+
+	// // Destruction de l'image principale
+	// if (game->img)
+	// 	mlx_destroy_image(game->mlx, game->img);
+
+	// // Destruction de la fenêtre
+	// if (game->win)
+	// 	mlx_destroy_window(game->mlx, game->win);
+
+	// // Destruction de l'affichage (optionnel selon implémentation)
+	// // Si tu as appelé mlx_init(), tu peux faire ça :
+	// if (game->mlx)
+	// {
+	// 	// Certaines implémentations de la mlx ont cette fonction
+	// 	// sinon tu peux l’ignorer si tu ne l’as pas :
+	// 	// mlx_destroy_display(game->mlx);
+	// 	free(game->mlx);
+	// }
+	
+	// // Enfin, libérer la structure elle-même si elle a été malloc
+	// free(game);
+	 return(1);
 }
 
 int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307) // ESC
-		close_handler(data);
-	// if (keycode == XK_Escape)
-	// if (keycode == 65307) // ESC
-	// 	exit(0);
+		free_data(data);
+
 	if (keycode == 119)
 		data->w = 1;
 	if (keycode == 115)

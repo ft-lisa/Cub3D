@@ -171,4 +171,6 @@ void		draw_wall(t_data *game);
 int	display_mario_image(void *mlx, void *window);
 void		rotate_vector(t_data *texture, float angle_degrees);
 
+int	free_data(t_data *game);
+
 #endif

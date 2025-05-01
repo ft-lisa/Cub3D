@@ -80,7 +80,7 @@ int	main(int argc, char **argv)
 	print_game_data(&texture);
 	mlx_hook(texture.win, 2, 1L << 0, key_press, &texture);
 	mlx_hook(texture.win, 3, 1L << 1, key_release, &texture);
-	mlx_hook(texture.win, DestroyNotify, StructureNotifyMask, close_handler,
+	mlx_hook(texture.win, DestroyNotify, StructureNotifyMask, free_data,
 		&texture);
 	mlx_loop_hook(texture.mlx, update, &texture);
 	mlx_loop(texture.mlx);
