@@ -187,9 +187,9 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
 	{
 		if (texture->x < ray->x)
 		{
-			tex = texture->east;
-			texWidth = texture->widtheast;
-			texHeight = texture->heighteast;
+			tex = texture->west;
+			texWidth = texture->widthwest;
+			texHeight = texture->heightwest;
 		}
 		else
 		{
@@ -202,15 +202,15 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
 	{
 		if (texture->y < ray->y)
 		{
-			tex = texture->east;
-			texWidth = texture->widtheast;
-			texHeight = texture->heighteast;	
+			tex = texture->south;
+			texWidth = texture->widthsouth;
+			texHeight = texture->heightsouth;	
 		}
 		else
 		{
-			tex = texture->east;
-			texWidth = texture->widtheast;
-			texHeight = texture->heighteast;
+			tex = texture->north;
+			texWidth = texture->widthnorth;
+			texHeight = texture->heightnorth;
 		}
 	}
 	double lineHeight = HEIGHT / ray->perpWallDist;

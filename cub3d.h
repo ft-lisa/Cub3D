@@ -39,13 +39,13 @@ typedef struct s_data
 	int	heightnorth;
 	int	widthnorth;
 	void	*south;
-	int	heighsouth;
+	int	heightsouth;
 	int	widthsouth;
 	void	*east;
 	int	heighteast;
 	int	widtheast;
 	void	*west;
-	int	heightweast;
+	int	heightwest;
 	int	widthwest;
 	void	*mlx;
 	void	*win;

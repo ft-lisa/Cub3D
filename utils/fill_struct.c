@@ -76,24 +76,24 @@ void fill_texture(char* line, t_data* texture)
         line = line + 3;
         line = pass_space(line);
         swap_n_to_z(line);
-        // if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ' )
-        // {
-        //         texture->north = mlx_xpm_file_to_image(texture->mlx, line, &widht, &height);
-        //         texture->widthnorth = widht;
-        //         texture->heightnorth = height;
-        // }        
-        // else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ' )
-        // {
-        //         texture->south = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
-        //         texture->widthsouth = widht;
-        //         texture->heighsouth = height;
-        // }
-        // else if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ' )
-        // {
-        //         texture->west = mlx_xpm_file_to_image(texture->mlx, line, &height, &height);
-        //         texture->widthwest = widht;
-        //         texture->heightweast = height;
-        // }
+        if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ' )
+        {
+                texture->north = mlx_xpm_file_to_image(texture->mlx, line, &widht, &height);
+                texture->widthnorth = widht;
+                texture->heightnorth = height;
+        }        
+        else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ' )
+        {
+                texture->south = mlx_xpm_file_to_image(texture->mlx, line, &widht, &height);
+                texture->widthsouth = widht;
+                texture->heightsouth = height;
+        }
+        else if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ' )
+        {
+                texture->west = mlx_xpm_file_to_image(texture->mlx, line, &widht, &height);
+                texture->widthwest = widht;
+                texture->heightwest = height;
+        }
         if (ori_line[0] == 'E' && ori_line[1] == 'A' && ori_line[2] == ' ' )
         {
                 texture->east = mlx_xpm_file_to_image(texture->mlx, line, &widht, &height);
@@ -109,12 +109,12 @@ void fill_color(char* line, t_data* texture)
         int red;
         int blue;
         int green;
-		(void)texture;
 
         floor = 0;
-        line = pass_space(line);
-        if (line[0] == 'F')
+        if (line[0] == 'F' && line[1] == ' ')
                 floor = 1;
+        else if (line[0] == 'C' && line[1] == ' ')
+                floor = -1;
         if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
         {
                  line++;
@@ -129,11 +129,9 @@ void fill_color(char* line, t_data* texture)
                 line++;
                 blue = atoi(line);
         }
-        else
-                return ;
-        if (floor)
+        if (floor == 1)
                 texture->color_floor = (red << 16) | (green << 8) | blue;
-        else
+        if (floor == -1)
                 texture->color_ceilling = (red << 16) | (green << 8) | blue;   
 }
 

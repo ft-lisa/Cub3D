@@ -1,16 +1,5 @@
 #include "../cub3d.h"
 
-// void fill_mlx(t_data* texture)
-// {
-//         texture->mlx = mlx_init();
-// 	if (texture->mlx == NULL)
-// 	{
-//                 free(texture->map);
-//                 exit(EXIT_FAILURE);
-//         }
-//         texture->win = mlx_new_window(texture->mlx, 1366, 768, "Cub3D");
-// }
-
 void	fill_mlx(t_data *texture)
 {
 	texture->mlx = mlx_init();
