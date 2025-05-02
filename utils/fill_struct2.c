@@ -114,6 +114,6 @@ void	fill_struct(t_data *texture, char *file)
 		free(ori_line);
 	}
 	close(fd);
-	// if(check_all_fill(texture) == ERROR)
-	// clean_exit(texture);
+	if(check_all_fill(texture) == ERROR)
+		free_data(texture);
 }
