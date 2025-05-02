@@ -1,6 +1,49 @@
 #include "cub3d.h"
 #include <stdio.h>
 
+void	free_game_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	if (!map)
+		return ;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
+int	free_data(t_data *game)
+{
+	(void)game;
+	if (game->map)
+		free(game->map);
+	if (game->game_map)
+		free_game_map(game->game_map);
+	if (game->north)
+		mlx_destroy_image(game->mlx, game->north);
+	if (game->south)
+		mlx_destroy_image(game->mlx, game->south);
+	if (game->east)
+		mlx_destroy_image(game->mlx, game->east);
+	if (game->west)
+		mlx_destroy_image(game->mlx, game->west);
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	exit(0);
+	return (1);
+}
+
 // void print_game_data(t_data *game)
 // {
 //     // Affichage des informations de la carte

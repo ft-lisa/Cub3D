@@ -19,6 +19,7 @@ SRCS = 	\
 	utils/fill_struct2.c \
 	utils/init_struct.c \
 	game/movement.c \
+	game/direction.c \
 	game/draw_game.c \
 	game/draw_texture.c \
 	game/dda.c \

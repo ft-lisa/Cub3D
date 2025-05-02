@@ -198,4 +198,10 @@ int			free_data(t_data *game);
 void	draw_texture_line(t_data *texture, t_ray *ray, int x);
 void	put_background(t_data *texture);
 
+void	rotate_left(t_data *data, float move_speed, double old_dir_x);
+void	rotate_right(t_data *data, float move_speed, double old_dir_x);
+void	move_forward(t_data *data, float move_speed);
+void	move_backward(t_data *data, float move_speed);
+
+
 #endif
