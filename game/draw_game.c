@@ -1,12 +1,22 @@
-#include "../cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 11:05:07 by lismarti          #+#    #+#             */
+/*   Updated: 2025/05/02 11:05:58 by lismarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/* voir le cas si il y a des espaces derriere est de que il faut prendre e ncompte que toutes les lignes on la meme taille */
+#include "../cub3d.h"
 
 void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT) // protection
+	if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT)
 		return ;
 	dst = texture->img_ptr + ((y * texture->line_length) + (x
 				* (texture->bits_per_pixel / 8)));
@@ -20,9 +30,8 @@ void	draw_fov(t_data *game)
 	game->ddaX = game->dirX;
 	game->ddaY = game->dirY;
 	i = -30;
-	while (i <= 30) // -30 -> +30 degrés (total 60° FOV)
+	while (i <= 30)
 	{
-		// Repartir de la direction de base à chaque rayon
 		game->ddaX = game->dirX;
 		game->ddaY = game->dirY;
 		rotate_vector(game, i);
@@ -49,7 +58,7 @@ void	draw_character(t_data *texture, int center_x, int center_y, int radius,
 		}
 		y++;
 	}
-	//draw_fov(texture);
+	draw_fov(texture);
 }
 
 void	line(t_data *texture)
