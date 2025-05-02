@@ -110,6 +110,8 @@ int	display_mario_image(void *mlx, void *window)
 // voir pour getnext_line
 // bien verifier l'orientation des textures
 // message dans sortie d'erreur ? mettre error ?
+// change keys  => arrow keys to rotate the de player's view WASD for the player movement
+// check all directions N S E W
 
 int	main(int argc, char **argv)
 {
