@@ -50,7 +50,7 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	int		size_map;
-	int		wallX;
+	int		wall_x;
 
 	// pixel
 	void	*img;
@@ -107,19 +107,19 @@ typedef struct s_tex
 	int		y;
 	int		color;
 	double	step;
-	double	texPos;
+	double	tex_pos;
 	void	*tex;
-	int		texWidth;
-	int		texHeight;
-	double	lineHeight;
-	double	wallX;
+	int		tex_width;
+	int		tex_height;
+	double	line_height;
+	double	wall_x;
 	char	*info;
 	int		offset;
-	int texX; 
-	int texY;
-	int bpp;
-	int line_length; 
-	int endian;
+	int		tex_x;
+	int		tex_y;
+	int		bpp;
+	int		line_length;
+	int		endian;
 }			t_tex;
 
 /* check_map */
@@ -195,19 +195,19 @@ void		draw_wall(t_data *game);
 int			display_mario_image(void *mlx, void *window);
 void		rotate_vector(t_data *texture, float angle_degrees);
 
-int	free_data(t_data *game);
-void	draw_texture_line(t_data *texture, t_ray *ray, int x);
-void	put_background(t_data *texture);
+int			free_data(t_data *game);
+void		draw_texture_line(t_data *texture, t_ray *ray, int x);
+void		put_background(t_data *texture);
 
-void	rotate_left(t_data *data, float move_speed, double old_dir_x);
-void	rotate_right(t_data *data, float move_speed, double old_dir_x);
-void	move_forward(t_data *data, float move_speed);
-void	move_backward(t_data *data, float move_speed);
-void	move_left(t_data *data, float move_speed);
-void	move_right(t_data *data, float move_speed);
+void		rotate_left(t_data *data, float move_speed, double old_dir_x);
+void		rotate_right(t_data *data, float move_speed, double old_dir_x);
+void		move_forward(t_data *data, float move_speed);
+void		move_backward(t_data *data, float move_speed);
+void		move_left(t_data *data, float move_speed);
+void		move_right(t_data *data, float move_speed);
 
-void	mouse_rotate_view(t_data *data, float rot_speed);
-int	mouse_move(int x, int y, t_data *data);
+void		mouse_rotate_view(t_data *data, float rot_speed);
+int			mouse_move(int x, int y, t_data *data);
 
 
 
