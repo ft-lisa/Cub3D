@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:11:56 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 12:23:33 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:49:20 by jaqin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ int	update(t_data *data)
 		move_forward(data, move_speed);
 	if (data->s)
 		move_backward(data, move_speed);
+	if (data->a)
+		move_left(data, move_speed);
+	if (data->d)
+		move_right(data, move_speed);
 	draw_game(data);
 	return (0);
 }

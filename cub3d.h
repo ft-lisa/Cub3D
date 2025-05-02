@@ -202,6 +202,8 @@ void	rotate_left(t_data *data, float move_speed, double old_dir_x);
 void	rotate_right(t_data *data, float move_speed, double old_dir_x);
 void	move_forward(t_data *data, float move_speed);
 void	move_backward(t_data *data, float move_speed);
+void	move_left(t_data *data, float move_speed);
+void	move_right(t_data *data, float move_speed);
 
 
 #endif
