@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:39:03 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 11:52:42 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:05:58 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,13 @@ void init_calcul(t_data* texture, t_ray *ray, t_tex *data, int drawStart)
         }
 }
 
-void	draw_texture_line(t_data *texture, t_ray *ray, int x, int drawStart,
-        int drawEnd)
+void	draw_texture_line(t_data *texture, t_ray *ray, int x)
 {
         t_tex data;
-        data.y = drawStart;
+        data.y = ray->draw_start;
         init_texture_line(texture, ray, &data);
-        init_calcul(texture, ray, &data, drawStart);
-        while (data.y < drawEnd)
+        init_calcul(texture, ray, &data, ray->draw_start);
+        while (data.y < ray->draw_end)
         {
                 data.texY = (int)data.texPos;
                 if (data.texY >= data.texHeight)

@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:05:07 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 11:53:22 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:11:20 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,11 @@ void	draw_character(t_data *texture, int radius)
 	draw_fov(texture);
 }
 
-void	put_floor(t_data *texture)
+void	put_background(t_data *texture)
 {
 	int	x;
 	int	y;
 
-	x = 0;
-	y = HEIGHT / 2;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			my_mlx_pixel_put(texture, x, y, texture->color_floor);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	put_ceil(t_data *texture)
-{
-	int	x;
-	int	y;
-
-	x = 0;
 	y = 0;
 	while (y < HEIGHT / 2)
 	{
@@ -68,6 +48,17 @@ void	put_ceil(t_data *texture)
 		while (x < WIDTH)
 		{
 			my_mlx_pixel_put(texture, x, y, texture->color_ceilling);
+			x++;
+		}
+		y++;
+	}
+	y = HEIGHT / 2;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(texture, x, y, texture->color_floor);
 			x++;
 		}
 		y++;
@@ -99,40 +90,34 @@ void	put_minimap(t_data *texture)
 void	draw_wall(t_data *game)
 {
 	float	x;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	float	cameraX;
+	int		line_height;
+	float	camera_x;
 	t_ray	ray;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		cameraX = 2 * x / (float)WIDTH - 1;
-		game->ddaX = game->dirX + game->planeX * cameraX;
-		game->ddaY = game->dirY + game->planeY * cameraX;
+		camera_x = 2 * x / (float)WIDTH - 1;
+		game->ddaX = game->dirX + game->planeX * camera_x;
+		game->ddaY = game->dirY + game->planeY * camera_x;
 		dda(game, &ray);
-		lineHeight = (int)(HEIGHT / (ray.perpWallDist)); // avoid division by 0
-		drawStart = -lineHeight / 2 + HEIGHT / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		drawEnd = lineHeight / 2 + HEIGHT / 2;
-		if (drawEnd >= HEIGHT)
-			drawEnd = HEIGHT - 1;
-		draw_texture_line(game, &ray, x, drawStart, drawEnd);
+		line_height = (int)(HEIGHT / (ray.perpWallDist));
+		ray.draw_start = -line_height / 2 + HEIGHT / 2;
+		if (ray.draw_start < 0)
+			ray.draw_start = 0;
+		ray.draw_end = line_height / 2 + HEIGHT / 2;
+		if (ray.draw_end >= HEIGHT)
+			ray.draw_end = HEIGHT - 1;
+		draw_texture_line(game, &ray, x);
 		x += 1;
 	}
 }
-
-
 
 void	draw_game(t_data *texture)
 {
 	mlx_destroy_image(texture->mlx, texture->img);
 	texture->img = mlx_new_image(texture->mlx, WIDTH, HEIGHT);
-	// put_background(texture);
-	put_ceil(texture);
-	put_floor(texture);
+	put_background(texture);
 	draw_wall(texture);
 	put_minimap(texture);
 	mlx_put_image_to_window(texture->mlx, texture->win, texture->img, 0, 0);
