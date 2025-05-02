@@ -1,4 +1,4 @@
-NO ./sprites/malicious_xpm
+NO ./cub3d.c
 SO ./sprites/wall_brick1.xpm
 WE ./sprites/wall_brick2.xpm
 EA ./sprites/wall_brick3.xpm

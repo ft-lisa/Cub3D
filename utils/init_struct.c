@@ -41,5 +41,6 @@ t_data	init_list(void)
 	texture.d = 0;
 	texture.left = 0;
 	texture.right = 0;
+	texture.value = 0;
 	return (texture);
 }

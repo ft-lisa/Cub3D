@@ -1,21 +1,26 @@
 #!/bin/bash
 
 MAP_DIR="maps/invalid"
-EXECUTABLE="./cub3d"
+EXECUTABLE="./cub3D"
 
 echo "== Testing invalid maps in '$MAP_DIR' =="
 
-# Loop through all files in the directory
 for map in "$MAP_DIR"/*; do
 	if [[ -f "$map" ]]; then
-		echo -n "Testing $(basename "$map")... "
-		$EXECUTABLE "$map" > /dev/null 2>&1
+		echo "Testing $(basename "$map")..."
+		
+		# Exécute et capture la sortie d'erreur
+		ERROR_OUTPUT=$($EXECUTABLE "$map" 2>&1)
 		EXIT_CODE=$?
 
 		if [ $EXIT_CODE -ne 0 ]; then
 			echo "✅ Failed as expected (exit code $EXIT_CODE)"
+			echo "Error output:"
+			echo "$ERROR_OUTPUT"
 		else
 			echo "❌ Unexpected success (exit code $EXIT_CODE)"
 		fi
+
+		echo "----------------------------------------"
 	fi
 done

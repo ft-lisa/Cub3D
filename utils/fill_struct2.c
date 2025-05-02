@@ -85,7 +85,11 @@ int	check_all_fill(t_data *texture)
 {
 	if (!texture->win || !texture->north || !texture->south || !texture->west
 		|| !texture->east)
-		return (0);
+		{
+			texture->value = 1;
+			return (printf(ERR_TEX_MISS), 0);
+		}
+		
 	return (1);
 }
 

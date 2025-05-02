@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:39:03 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 12:15:39 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:32:03 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_calcul(t_data *texture, t_ray *ray, t_tex *data, int drawStart)
 	if (!data->info)
 	{
 		printf("Erreur : donnée de texture non valide !\n");
+                texture->value = 1;
 		free_data(texture);
 	}
 }

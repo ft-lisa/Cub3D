@@ -81,6 +81,7 @@ typedef struct s_data
 	int		d;
 	int		left;
 	int		right;
+	int		value;
 }			t_data;
 
 typedef struct s_ray
@@ -194,7 +195,7 @@ void		draw_wall(t_data *game);
 int			display_mario_image(void *mlx, void *window);
 void		rotate_vector(t_data *texture, float angle_degrees);
 
-int			free_data(t_data *game);
+int	free_data(t_data *game);
 void	draw_texture_line(t_data *texture, t_ray *ray, int x);
 void	put_background(t_data *texture);
 
