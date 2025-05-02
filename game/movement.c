@@ -1,11 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 12:11:56 by lismarti          #+#    #+#             */
+/*   Updated: 2025/05/02 12:17:14 by lismarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	free_game_map(char **map)
 {
+	int	i;
+
+	i = 0;
 	if (!map)
-		return;
-	for (int i = 0; map[i]; i++)
+		return ;
+	while (map[i])
+	{
 		free(map[i]);
+		i++;
+	}
 	free(map);
 }
 
@@ -34,14 +52,13 @@ int	free_data(t_data *game)
 		free(game->mlx);
 	}
 	exit(0);
-	 return(1);
+	return (1);
 }
 
 int	key_press(int keycode, t_data *data)
 {
-	if (keycode == 65307) // ESC
+	if (keycode == 65307)
 		free_data(data);
-
 	if (keycode == 119)
 		data->w = 1;
 	if (keycode == 115)
@@ -122,45 +139,3 @@ int	update(t_data *data)
 	draw_game(data);
 	return (0);
 }
-
-// int update(t_data *data)
-// {
-// 	// // Rotation a changer en vecteur
-// 	if (data->left)
-// 		data->angle -= 0.015;
-// 	if (data->right)
-// 		data->angle += 0.015;
-// 	if (data->angle > 6 || data->angle < -6)
-// 		data->angle = 0;
-
-// 	// Déplacement
-// 	if (data->w)
-// 	{
-// 		data->x += sin(data->angle) * 0.015;
-// 		data->y += cos(data->angle) * 0.015;
-// 	}
-// 	if (data->s)
-// 	{
-// 		data->x -= sin(data->angle) * 0.015;
-// 		data->y -= cos(data->angle) * 0.015;
-// 	}
-// 	draw_game(data);
-// 	return (0);
-// }
-
-// if (data->a)
-// {
-// 	data->angle -= 0.015;
-// 	if (data->angle < 0)
-// 		data->angle += 2 * PI;
-// 	data->x = cos(data->angle);
-// 	data->y = sin(data->angle);
-// }
-// if (data->d)
-// {
-// 	data->angle += 0.015;
-// 	if (data->angle > 2 * PI)
-// 		data->angle -= 2 * PI;
-// 	data->x = cos(data->angle);
-// 	data->y = sin(data->angle);
-// }

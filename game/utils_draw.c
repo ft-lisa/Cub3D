@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:22:46 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 11:24:23 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:15:21 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	draw_fov(t_data *game)
 		i += 0.1;
 	}
 }
+
 void	line(t_data *texture, int i)
 {
 	int		length;
@@ -82,11 +83,11 @@ void	rotate_vector(t_data *texture, float angle_degrees)
 {
 	float	old_x;
 	float	old_y;
+	float	angle_radians;
 
 	old_x = texture->ddaX;
 	old_y = texture->ddaY;
-	float angle_radians = angle_degrees * PI / 180.0;
-		// conversion degrés-> radians
+	angle_radians = angle_degrees * PI / 180.0;
 	texture->ddaX = old_x * cos(angle_radians) - old_y * sin(angle_radians);
 	texture->ddaY = old_x * sin(angle_radians) + old_y * cos(angle_radians);
 }
