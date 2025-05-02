@@ -174,7 +174,7 @@ void		draw_fov(t_data *game);
 int			update(t_data *data);
 int			key_release(int keycode, t_data *data);
 int			key_press(int keycode, t_data *data);
-int			close_handler(t_data *data);
+// int			close_handler(t_data *data);
 
 /* draw_game */
 
@@ -205,6 +205,10 @@ void	move_forward(t_data *data, float move_speed);
 void	move_backward(t_data *data, float move_speed);
 void	move_left(t_data *data, float move_speed);
 void	move_right(t_data *data, float move_speed);
+
+void	mouse_rotate_view(t_data *data, float rot_speed);
+int	mouse_move(int x, int y, t_data *data);
+
 
 
 #endif
