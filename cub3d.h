@@ -194,5 +194,7 @@ int			display_mario_image(void *mlx, void *window);
 void		rotate_vector(t_data *texture, float angle_degrees);
 
 int			free_data(t_data *game);
+void	draw_texture_line(t_data *texture, t_ray *ray, int x, int drawStart,
+        int drawEnd);
 
 #endif
