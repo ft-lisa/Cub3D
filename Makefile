@@ -21,6 +21,7 @@ SRCS = 	\
 	game/movement.c \
 	game/draw_game.c \
 	game/dda.c \
+	game/utils_draw.c \
 	cub3d.c \
 
 OBJS = $(SRCS:%.c=$(O_DIR)/%.o)

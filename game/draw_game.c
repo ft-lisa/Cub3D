@@ -6,46 +6,21 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:05:07 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 11:05:58 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:37:15 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	my_mlx_pixel_put(t_data *texture, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x < 0 || y < 0 || x > WIDTH || y > HEIGHT)
-		return ;
-	dst = texture->img_ptr + ((y * texture->line_length) + (x
-				* (texture->bits_per_pixel / 8)));
-	*(unsigned int *)dst = color;
-}
-
-void	draw_fov(t_data *game)
-{
-	float	i;
-
-	game->ddaX = game->dirX;
-	game->ddaY = game->dirY;
-	i = -30;
-	while (i <= 30)
-	{
-		game->ddaX = game->dirX;
-		game->ddaY = game->dirY;
-		rotate_vector(game, i);
-		line(game);
-		i += 0.1;
-	}
-}
-
-void	draw_character(t_data *texture, int center_x, int center_y, int radius,
-		int color)
+void	draw_character(t_data *texture, int radius)
 {
 	int	x;
 	int	y;
+	int	center_x;
+	int	center_y;
 
+	center_x = texture->x * CUB_SIZE;
+	center_y = texture->y * CUB_SIZE;
 	y = -radius + 1;
 	while (y <= radius)
 	{
@@ -53,69 +28,12 @@ void	draw_character(t_data *texture, int center_x, int center_y, int radius,
 		while (x <= radius)
 		{
 			if (x * x + y * y < radius * radius)
-				my_mlx_pixel_put(texture, center_x + x, center_y + y, color);
+				my_mlx_pixel_put(texture, center_x + x, center_y + y, 16776960);
 			x++;
 		}
 		y++;
 	}
 	draw_fov(texture);
-}
-
-void	line(t_data *texture)
-{
-	int	i;
-	int	length;
-	int	px;
-	int	py;
-	t_ray ray;
-
-	length = dda(texture, &ray);
-	i = 0;
-	while (i <= length)
-	{
-		px = round(texture->x * CUB_SIZE + texture->ddaX * i);
-		py = round(texture->y * CUB_SIZE + texture->ddaY * i);
-		my_mlx_pixel_put(texture, px, py, 0xFF0000);
-		i++;
-	}
-}
-
-void	put_square(t_data *texture, int color, int size, float x, float y)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			my_mlx_pixel_put(texture, x * CUB_SIZE + i, y * CUB_SIZE + j,
-				color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	put_background(t_data *texture)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			my_mlx_pixel_put(texture, x, y, 0x808080);
-			x++;
-		}
-		y++;
-	}
 }
 
 void	put_floor(t_data *texture)
@@ -168,93 +86,83 @@ void	put_minimap(t_data *texture)
 		while (texture->game_map[i][j])
 		{
 			if (texture->game_map[i][j] == '1')
-				put_square(texture, 654654, CUB_SIZE - 1, j, i);
+				put_square(texture, 654654, j, i);
 			else
-				put_square(texture, 0, CUB_SIZE - 1, j, i);
+				put_square(texture, 0, j, i);
 			j++;
 		}
 		i++;
 	}
-	draw_character(texture, texture->x * CUB_SIZE, texture->y * CUB_SIZE, 5,
-		16776960);
+	draw_character(texture, 5);
 }
 
-void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int drawEnd)
+void	draw_vertical_line(t_data *texture, t_ray *ray, int x, int drawStart,
+		int drawEnd)
 {
-	int		y;
-	int		texX, texY;
-	int		color;
-	double	step;
-	double	texPos;
-	void	*tex;
-	int		texWidth;
-	int		texHeight;
-	int bpp, line_length, endian;
-	
-	y = drawStart;
+	t_tex data;
+	data.y = drawStart;
 	if (ray->side == 0)
 	{
 		if (texture->x < ray->x)
 		{
-			tex = texture->west;
-			texWidth = texture->widthwest;
-			texHeight = texture->heightwest;
+			data.tex = texture->west;
+			data.texWidth = texture->widthwest;
+			data.texHeight = texture->heightwest;
 		}
 		else
 		{
-			tex = texture->east;
-			texWidth = texture->widtheast;
-			texHeight = texture->heighteast;	
+			data.tex = texture->east;
+			data.texWidth = texture->widtheast;
+			data.texHeight = texture->heighteast;
 		}
 	}
 	else
 	{
 		if (texture->y < ray->y)
 		{
-			tex = texture->south;
-			texWidth = texture->widthsouth;
-			texHeight = texture->heightsouth;	
+			data.tex = texture->south;
+			data.texWidth = texture->widthsouth;
+			data.texHeight = texture->heightsouth;
 		}
 		else
 		{
-			tex = texture->north;
-			texWidth = texture->widthnorth;
-			texHeight = texture->heightnorth;
+			data.tex = texture->north;
+			data.texWidth = texture->widthnorth;
+			data.texHeight = texture->heightnorth;
 		}
 	}
-	double lineHeight = HEIGHT / ray->perpWallDist;
-    double wallX;
+	data.lineHeight = HEIGHT / ray->perpWallDist;
 	if (ray->side == 0)
-		wallX = texture->y + ray->perpWallDist * texture->ddaY;
+		data.wallX = texture->y + ray->perpWallDist * texture->ddaY;
 	else
-		wallX = texture->x + ray->perpWallDist * texture->ddaX;
-
-    wallX -= floor(wallX);
-    texX = (int)(wallX * (double)texWidth);
-    step = 1.0 * texHeight / (lineHeight);
-    texPos = (drawStart - (-lineHeight / 2 + HEIGHT / 2)) * step;
-    char *data = mlx_get_data_addr(tex, &bpp, &line_length, &endian);
-    if (!data)
-    {
-        printf("Erreur : donnée de texture non valide !\n");
-        free_data(texture);
-    }
-    while (y < drawEnd)
-    {
-        texY = (int)texPos;
-        if (texY >= texHeight) texY = texHeight - 1;
-        if (texY < 0) texY = 0;
-        
-        texPos += step;
-        int offset = texY * line_length + texX * (bpp / 8);
-        if (texX < 0 || texX >= texWidth || texY < 0 || texY >= texHeight)
-        {
-            break;
-        }
-        color = *(unsigned int *)(data + offset);
-        my_mlx_pixel_put(texture, x, y, color);
-        y++;
-    }
+		data.wallX = texture->x + ray->perpWallDist * texture->ddaX;
+	data.wallX -= floor(data.wallX);
+	data.texX = (int)(data.wallX * (double)data.texWidth);
+	data.step = 1.0 * data.texHeight / (data.lineHeight);
+	data.texPos = (drawStart - (-data.lineHeight / 2 + HEIGHT / 2)) * data.step;
+	data.info = mlx_get_data_addr(data.tex, &data.bpp, &data.line_length, &data.endian);
+	if (!data.info)
+	{
+		printf("Erreur : donnée de texture non valide !\n");
+		free_data(texture);
+	}
+	while (data.y < drawEnd)
+	{
+		data.texY = (int)data.texPos;
+		if (data.texY >= data.texHeight)
+			data.texY = data.texHeight - 1;
+		if (data.texY < 0)
+			data.texY = 0;
+		data.texPos += data.step;
+		data.offset = data.texY * data.line_length + data.texX * (data.bpp / 8);
+		if (data.texX < 0 || data.texX >= data.texWidth || data.texY < 0 || data.texY >= data.texHeight)
+		{
+			break ;
+		}
+		data.color = *(unsigned int *)(data.info + data.offset);
+		my_mlx_pixel_put(texture, x, data.y, data.color);
+		data.y++;
+	}
 }
 
 void	draw_wall(t_data *game)
@@ -264,7 +172,7 @@ void	draw_wall(t_data *game)
 	int		drawStart;
 	int		drawEnd;
 	float	cameraX;
-	t_ray ray;
+	t_ray	ray;
 
 	x = 0;
 	while (x < WIDTH)
@@ -285,17 +193,7 @@ void	draw_wall(t_data *game)
 	}
 }
 
-void	rotate_vector(t_data *texture, float angle_degrees)
-{
-	float	old_x;
-	float	old_y;
 
-	old_x = texture->ddaX;
-	old_y = texture->ddaY;
-	float angle_radians = angle_degrees * PI / 180.0; // conversion degrés-> radians
-	texture->ddaX = old_x * cos(angle_radians) - old_y * sin(angle_radians);
-	texture->ddaY = old_x * sin(angle_radians) + old_y * cos(angle_radians);
-}
 
 void	draw_game(t_data *texture)
 {

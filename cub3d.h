@@ -4,13 +4,13 @@
 # include "checker/err_mess.h"
 # include "minilibx-linux/mlx.h"
 # include "utils/getnextline/get_next_line.h"
+# include <X11/X.h>      // for X11 keycodes  / CROSS EXIT SHIN
+# include <X11/keysym.h> // for keycodes / CROSS EXIT SHIN
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include <X11/keysym.h> // for keycodes / CROSS EXIT SHIN  
-# include <X11/X.h> // for X11 keycodes  / CROSS EXIT SHIN
 
 # define WIDTH 1366
 # define HEIGHT 768
@@ -36,22 +36,21 @@ typedef struct s_data
 	char	*map;
 	char	**game_map;
 	void	*north;
-	int	heightnorth;
-	int	widthnorth;
+	int		heightnorth;
+	int		widthnorth;
 	void	*south;
-	int	heightsouth;
-	int	widthsouth;
+	int		heightsouth;
+	int		widthsouth;
 	void	*east;
-	int	heighteast;
-	int	widtheast;
+	int		heighteast;
+	int		widtheast;
 	void	*west;
-	int	heightwest;
-	int	widthwest;
+	int		heightwest;
+	int		widthwest;
 	void	*mlx;
 	void	*win;
 	int		size_map;
-	int	wallX;
-
+	int		wallX;
 
 	// pixel
 	void	*img;
@@ -101,6 +100,26 @@ typedef struct s_ray
 	double	perpWallDist;
 }			t_ray;
 
+typedef struct s_tex
+{
+	int		y;
+	int		color;
+	double	step;
+	double	texPos;
+	void	*tex;
+	int		texWidth;
+	int		texHeight;
+	double	lineHeight;
+	double	wallX;
+	char	*info;
+	int		offset;
+	int texX; 
+	int texY;
+	int bpp;
+	int line_length; 
+	int endian;
+}			t_tex;
+
 /* check_map */
 
 int			file_browsing(int fd, t_element *map);
@@ -144,23 +163,26 @@ int			len_line(char *map, int i);
 int			where_in_line(char *map, int i);
 char		**ft_split(char const *s, char c);
 
+/* utils_draw */
+
+void		draw_fov(t_data *game);
+
 /* movement */
 
 int			update(t_data *data);
 int			key_release(int keycode, t_data *data);
 int			key_press(int keycode, t_data *data);
-int	close_handler(t_data *data);
+int			close_handler(t_data *data);
 
 /* draw_game */
 
 void		put_background(t_data *texture);
 void		put_minimap(t_data *texture);
 void		draw_game(t_data *texture);
-void		put_square(t_data *texture, int color, int size, float x, float y);
-void		line(t_data *texture);
+void		put_square(t_data *texture, int color, float x, float y);
+void		line(t_data *texture, int i);
 void		my_mlx_pixel_put(t_data *texture, int x, int y, int color);
-void		draw_character(t_data *texture, int center_x, int center_y,
-				int radius, int color);
+void		draw_character(t_data *texture, int radius);
 
 /* ray_casting */
 
@@ -168,9 +190,9 @@ double		dda(t_data *game, t_ray *ray);
 void		ray_loop(t_ray *ray, t_data *game);
 void		init_ray(t_ray *ray, t_data *game);
 void		draw_wall(t_data *game);
-int	display_mario_image(void *mlx, void *window);
+int			display_mario_image(void *mlx, void *window);
 void		rotate_vector(t_data *texture, float angle_degrees);
 
-int	free_data(t_data *game);
+int			free_data(t_data *game);
 
 #endif
