@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:13:36 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 16:30:24 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:06:31 by jaqin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	mouse_move(int x, int y, t_data *data)
 	{
 		mouse_rotate_view(data, delta);
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
-		mlx_mouse_hide(data->mlx, data->win);
 	}
 	return (0);
 }
+// mlx_mouse_hide(data->mlx, data->win);
