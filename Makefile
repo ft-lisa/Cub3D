@@ -15,6 +15,7 @@ SRCS = 	\
 	utils/getnextline/get_next_line_utils.c \
 	utils/ft_split.c \
 	utils/utils.c \
+	utils/utils2.c \
 	utils/fill_struct.c \
 	utils/fill_struct2.c \
 	utils/init_struct.c \
