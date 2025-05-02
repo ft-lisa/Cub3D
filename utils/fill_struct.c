@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 15:42:46 by lismarti          #+#    #+#             */
+/*   Updated: 2025/05/02 15:53:52 by lismarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	copy_map(int fd, t_data *tex)
@@ -40,8 +52,6 @@ void	fill_map(char *file, t_data *tex)
 	while (pass_element(&element) == ERROR)
 	{
 		line = get_next_line(fd);
-		// if (line == NULL)
-		//	 (printf(ERR_CHAR), exit(EXIT_FAILURE));
 		ori_line = line;
 		if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
 			texture(line, &element);
@@ -63,8 +73,8 @@ void	swap_n_to_z(char *line)
 		line[i] = 0;
 }
 
-static void	fill_texture_helper(char *line, t_data *texture, int *height,
-	int *width)
+void	fill_texture_helper(char *line, t_data *texture, int *height,
+		int *width)
 {
 	char	*ori_line;
 
@@ -74,24 +84,24 @@ static void	fill_texture_helper(char *line, t_data *texture, int *height,
 	line = line + 3;
 	line = pass_space(line);
 	swap_n_to_z(line);
-	if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ' )
+	if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ')
 	{
-		texture->north = mlx_xpm_file_to_image(texture->mlx, line, width, \
-			height);
+		texture->north = mlx_xpm_file_to_image(texture->mlx, line, width,
+				height);
 		texture->widthnorth = *width;
 		texture->heightnorth = *height;
 	}
-	else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ' )
+	else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ')
 	{
-		texture->south = mlx_xpm_file_to_image(texture->mlx, line, width, \
-			height);
+		texture->south = mlx_xpm_file_to_image(texture->mlx, line, width,
+				height);
 		texture->widthsouth = *width;
 		texture->heightsouth = *height;
 	}
 }
 
-static void	fill_texture_helper2(char *line, t_data *texture, int *height,
-	int *width)
+void	fill_texture_helper2(char *line, t_data *texture, int *height,
+		int *width)
 {
 	char	*ori_line;
 
@@ -101,105 +111,18 @@ static void	fill_texture_helper2(char *line, t_data *texture, int *height,
 	line = line + 3;
 	line = pass_space(line);
 	swap_n_to_z(line);
-	if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ' )
+	if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ')
 	{
-		texture->west = mlx_xpm_file_to_image(texture->mlx, line, width, \
-			height);
+		texture->west = mlx_xpm_file_to_image(texture->mlx, line, width,
+				height);
 		texture->widthwest = *width;
 		texture->heightwest = *height;
 	}
-	else if (ori_line[0] == 'E' && ori_line[1] == 'A' && ori_line[2] == ' ' )
+	else if (ori_line[0] == 'E' && ori_line[1] == 'A' && ori_line[2] == ' ')
 	{
-		texture->east = mlx_xpm_file_to_image(texture->mlx, line, width, \
-			height);
+		texture->east = mlx_xpm_file_to_image(texture->mlx, line, width,
+				height);
 		texture->widtheast = *width;
 		texture->heighteast = *height;
 	}
 }
-
-void	fill_texture(char *line, t_data *texture)
-{
-	int		height;
-	int		width;
-	// char	*ori_line;
-
-	(void)texture;
-	height = 0;
-	width = 0;
-	display_mario_image(texture->mlx, texture->win);
-	// ori_line = line;
-	// if (ft_strlen(line) < 3)
-	// 	return ;
-	// line = line + 3;
-	// line = pass_space(line);
-	// swap_n_to_z(line);
-	fill_texture_helper(line, texture, &height, &width);
-	fill_texture_helper2(line, texture, &height, &width);
-}
-	// if (ori_line[0] == 'N' && ori_line[1] == 'O' && ori_line[2] == ' ' )
-	// {
-	// 	texture->north = mlx_xpm_file_to_image(texture->mlx, line, &width, \
-	// 		&height);
-	// 	texture->widthnorth = width;
-	// 	texture->heightnorth = height;
-	// }
-	// else if (ori_line[0] == 'S' && ori_line[1] == 'O' && ori_line[2] == ' ' )
-	// {
-	// 	texture->south = mlx_xpm_file_to_image(texture->mlx, line, &width, &height);
-	// 	texture->widthsouth = width;
-	// 	texture->heightsouth = height;
-	// }
-	// else if (ori_line[0] == 'W' && ori_line[1] == 'E' && ori_line[2] == ' ' )
-	// {
-	// 	texture->west = mlx_xpm_file_to_image(texture->mlx, line, &width, &height);
-	// 	texture->widthwest = width;
-	// 	texture->heightwest = height;
-	// }
-	// else if (ori_line[0] == 'E' && ori_line[1] == 'A' && ori_line[2] == ' ' )
-	// {
-	// 	texture->east = mlx_xpm_file_to_image(texture->mlx, line, &width, &height);
-	// 	texture->widtheast = width;
-	// 	texture->heighteast = height;
-	// }
-
-void	fill_color(char *line, t_data *texture)
-{
-	int	floor;
-	int	red;
-	int	blue;
-	int	green;
-
-	floor = 0;
-	if (line[0] == 'F' && line[1] == ' ')
-		floor = 1;
-	else if (line[0] == 'C' && line[1] == ' ')
-		floor = -1;
-	if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
-	{
-		line++;
-		line = pass_space(line);
-		red = atoi(line);
-		while (*line != ',')
-			line++;
-		line++;
-		green = atoi(line);
-		while (*line != ',')
-			line++;
-		line++;
-		blue = atoi(line);
-	}
-	if (floor == 1)
-		texture->color_floor = (red << 16) | (green << 8) | blue;
-	if (floor == -1)
-		texture->color_ceilling = (red << 16) | (green << 8) | blue;
-}
-
-// int	line_len(char *map, int i)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	while (map[i + j] != '\n' && map[i + j] != '\0')
-// 		j++;
-// 	return (j);
-// }

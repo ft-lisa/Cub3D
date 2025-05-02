@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:39:03 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 15:22:16 by jaqin            ###   ########.fr       */
+/*   Updated: 2025/05/02 16:06:48 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	init_texture_line(t_data *texture, t_ray *ray, t_tex *data)
 
 void	init_calcul(t_data *texture, t_ray *ray, t_tex *data, int drawStart)
 {
-	data->line_height = HEIGHT / ray->perpWallDist;
+	data->line_height = HEIGHT / ray->perpwalldist;
 	if (ray->side == 0)
-		data->wall_x = texture->y + ray->perpWallDist * texture->ddaY;
+		data->wall_x = texture->y + ray->perpwalldist * texture->dda_y;
 	else
-		data->wall_x = texture->x + ray->perpWallDist * texture->ddaX;
+		data->wall_x = texture->x + ray->perpwalldist * texture->dda_x;
 	data->wall_x -= floor(data->wall_x);
 	data->tex_x = (int)(data->wall_x * (double)data->tex_width);
 	data->step = 1.0 * data->tex_height / (data->line_height);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaqin <jaqin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:11:56 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 13:49:20 by jaqin            ###   ########.fr       */
+/*   Updated: 2025/05/02 16:04:05 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	update(t_data *data)
 	double	old_dir_x;
 
 	move_speed = 0.015;
-	old_dir_x = data->dirX;
+	old_dir_x = data->dir_x;
 	if (data->left)
 		rotate_left(data, move_speed, old_dir_x);
 	if (data->right)

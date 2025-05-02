@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_struct2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 15:48:03 by lismarti          #+#    #+#             */
+/*   Updated: 2025/05/02 16:03:12 by lismarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	fill_mlx(t_data *texture)
@@ -33,26 +45,26 @@ void	fill_angle(t_data *texture, char lettre)
 {
 	if (lettre == 'N')
 	{
-		texture->dirX = 0;
-		texture->dirY = -1;
+		texture->dir_x = 0;
+		texture->dir_y = -1;
 	}
 	if (lettre == 'S')
 	{
-		texture->dirX = 0;
-		texture->dirY = 1;
+		texture->dir_x = 0;
+		texture->dir_y = 1;
 	}
 	if (lettre == 'W')
 	{
-		texture->dirX = -1;
-		texture->dirY = 0;
+		texture->dir_x = -1;
+		texture->dir_y = 0;
 	}
 	if (lettre == 'E')
 	{
-		texture->dirX = 1;
-		texture->dirY = 0;
+		texture->dir_x = 1;
+		texture->dir_y = 0;
 	}
-	texture->planeX = -texture->dirY * 0.66;
-	texture->planeY = texture->dirX * 0.66;
+	texture->plane_x = -texture->dir_y * 0.66;
+	texture->plane_y = texture->dir_x * 0.66;
 }
 
 void	fill_pos(t_data *texture)
@@ -85,11 +97,10 @@ int	check_all_fill(t_data *texture)
 {
 	if (!texture->win || !texture->north || !texture->south || !texture->west
 		|| !texture->east)
-		{
-			texture->value = 1;
-			return (printf(ERR_TEX_MISS), 0);
-		}
-		
+	{
+		texture->value = 1;
+		return (printf(ERR_TEX_MISS), 0);
+	}
 	return (1);
 }
 
@@ -110,7 +121,7 @@ void	fill_struct(t_data *texture, char *file)
 	{
 		ori_line = line;
 		line = pass_space(line);
-		fill_color(line, texture);
+		fill_color(line, texture, 0, 0);
 		fill_texture(line, texture);
 		line = get_next_line(fd);
 		free(ori_line);

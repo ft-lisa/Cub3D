@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:05:07 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 12:11:20 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:06:16 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ void	draw_wall(t_data *game)
 	while (x < WIDTH)
 	{
 		camera_x = 2 * x / (float)WIDTH - 1;
-		game->ddaX = game->dirX + game->planeX * camera_x;
-		game->ddaY = game->dirY + game->planeY * camera_x;
+		game->dda_x = game->dir_x + game->plane_x * camera_x;
+		game->dda_y = game->dir_y + game->plane_y * camera_x;
 		dda(game, &ray);
-		line_height = (int)(HEIGHT / (ray.perpWallDist));
+		line_height = (int)(HEIGHT / (ray.perpwalldist));
 		ray.draw_start = -line_height / 2 + HEIGHT / 2;
 		if (ray.draw_start < 0)
 			ray.draw_start = 0;

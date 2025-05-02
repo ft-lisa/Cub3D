@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 15:41:53 by lismarti          #+#    #+#             */
+/*   Updated: 2025/05/02 16:01:59 by lismarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -32,7 +44,6 @@
 
 typedef struct s_data
 {
-	// game
 	char	*map;
 	char	**game_map;
 	void	*north;
@@ -51,30 +62,22 @@ typedef struct s_data
 	void	*win;
 	int		size_map;
 	int		wall_x;
-
-	// pixel
 	void	*img;
 	void	*img_ptr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-
 	int		color_floor;
 	int		color_ceilling;
-
-	// joueur
 	float	x;
 	float	y;
-	float	dirX;
-	float	dirY;
-	float	ddaX;
-	float	ddaY;
-	float	planeX;
-	float	planeY;
-
+	float	dir_x;
+	float	dir_y;
+	float	dda_x;
+	float	dda_y;
+	float	plane_x;
+	float	plane_y;
 	float	angle;
-
-	// keys
 	int		w;
 	int		s;
 	int		a;
@@ -87,17 +90,17 @@ typedef struct s_data
 typedef struct s_ray
 {
 	int		hit;
-	int		stepX;
-	int		stepY;
+	int		step_x;
+	int		step_y;
 	int		x;
 	int		y;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	sideDistX;
-	double	sideDistY;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	sidedist_x;
+	double	sidedist_y;
 	int		side;
 	double	dist;
-	double	perpWallDist;
+	double	perpwalldist;
 	int		draw_start;
 	int		draw_end;
 }			t_ray;
@@ -146,7 +149,7 @@ t_data		init_list(void);
 void		copy_map(int fd, t_data *tex);
 void		fill_map(char *file, t_data *tex);
 void		fill_texture(char *line, t_data *texture);
-void		fill_color(char *line, t_data *texture);
+void		fill_color(char *line, t_data *texture, int floor, int red);
 
 /* fill_struct2 */
 
@@ -208,7 +211,10 @@ void		move_right(t_data *data, float move_speed);
 
 void		mouse_rotate_view(t_data *data, float rot_speed);
 int			mouse_move(int x, int y, t_data *data);
-
-
+void		fill_color(char *line, t_data *texture, int floor, int red);
+void		fill_texture_helper(char *line, t_data *texture, int *height,
+				int *width);
+void		fill_texture_helper2(char *line, t_data *texture, int *height,
+				int *width);
 
 #endif

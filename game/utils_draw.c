@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:22:46 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 12:15:21 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:10:11 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	draw_fov(t_data *game)
 {
 	float	i;
 
-	game->ddaX = game->dirX;
-	game->ddaY = game->dirY;
+	game->dda_x = game->dir_x;
+	game->dda_y = game->dir_y;
 	i = -30;
 	while (i <= 30)
 	{
-		game->ddaX = game->dirX;
-		game->ddaY = game->dirY;
+		game->dda_x = game->dir_x;
+		game->dda_y = game->dir_y;
 		rotate_vector(game, i);
 		line(game, 0);
 		i += 0.1;
@@ -51,8 +51,8 @@ void	line(t_data *texture, int i)
 	i = 0;
 	while (i <= length)
 	{
-		px = round(texture->x * CUB_SIZE + texture->ddaX * i);
-		py = round(texture->y * CUB_SIZE + texture->ddaY * i);
+		px = round(texture->x * CUB_SIZE + texture->dda_x * i);
+		py = round(texture->y * CUB_SIZE + texture->dda_y * i);
 		my_mlx_pixel_put(texture, px, py, 0xFF0000);
 		i++;
 	}
@@ -85,9 +85,9 @@ void	rotate_vector(t_data *texture, float angle_degrees)
 	float	old_y;
 	float	angle_radians;
 
-	old_x = texture->ddaX;
-	old_y = texture->ddaY;
+	old_x = texture->dda_x;
+	old_y = texture->dda_y;
 	angle_radians = angle_degrees * PI / 180.0;
-	texture->ddaX = old_x * cos(angle_radians) - old_y * sin(angle_radians);
-	texture->ddaY = old_x * sin(angle_radians) + old_y * cos(angle_radians);
+	texture->dda_x = old_x * cos(angle_radians) - old_y * sin(angle_radians);
+	texture->dda_y = old_x * sin(angle_radians) + old_y * cos(angle_radians);
 }

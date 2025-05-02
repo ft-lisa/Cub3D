@@ -18,11 +18,14 @@ SRCS = 	\
 	utils/utils2.c \
 	utils/fill_struct.c \
 	utils/fill_struct2.c \
+	utils/fill_struct3.c \
 	utils/init_struct.c \
 	game/movement.c \
 	game/direction.c \
+	game/direction2.c \
 	game/draw_game.c \
 	game/draw_texture.c \
+	game/mouse.c \
 	game/dda.c \
 	game/utils_draw.c \
 	cub3d.c \
