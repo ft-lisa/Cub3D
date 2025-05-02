@@ -14,20 +14,6 @@ void	texture(char *line, t_element *map)
 		map->ea++;
 }
 
-/*
-F 220,100,0
-F 220,100,0,
-F 220,10a0,0
-F 2200,100,0
-F     220,100,0
-F 220,100
-F 220,100,
-F 220,110,0a
-F 220,100,0
-F     220,100,0
-F 220,100,51,54,
-*/
-
 int	check_num_color(char *line, int comma, int num, int cont)
 {
 	while (*line != '\0')

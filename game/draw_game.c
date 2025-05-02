@@ -228,7 +228,7 @@ void	draw_vertical_line(t_data *texture, t_ray* ray, int x, int drawStart, int d
     if (!data)
     {
         printf("Erreur : donnée de texture non valide !\n");
-        exit(1);
+        free_data(texture);
     }
     while (y < drawEnd)
     {
