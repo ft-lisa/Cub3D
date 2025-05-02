@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:13:36 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 16:20:55 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:30:24 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	mouse_rotate_view(t_data *data, float rot_speed)
 	data->dir_y = old_dirx * sin(rot_speed) + data->dir_y * cos(rot_speed);
 	data->plane_x = data->plane_x * cos(rot_speed) - \
 	data->plane_y * sin(rot_speed);
-	data->plane_y = old_planex * sin(rot_speed) + data->plane_y * cos(rot_speed);
+	data->plane_y = old_planex * sin(rot_speed)
+		+ data->plane_y * cos(rot_speed);
 }
 
 int	mouse_move(int x, int y, t_data *data)
