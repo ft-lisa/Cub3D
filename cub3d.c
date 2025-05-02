@@ -102,10 +102,9 @@ int	display_mario_image(void *mlx, void *window)
 		return (0);
 	}
 	mlx_put_image_to_window(mlx, window, image, width / 2 + 180, height / 2);
-    mlx_destroy_image(mlx, image);
+	mlx_destroy_image(mlx, image);
 	return (1);
 }
-
 
 // voir pour getnext_line
 // bien verifier l'orientation des textures
