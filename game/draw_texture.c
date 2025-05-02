@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:39:03 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 16:06:48 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:12:37 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_calcul(t_data *texture, t_ray *ray, t_tex *data, int drawStart)
 	if (!data->info)
 	{
 		printf("Erreur : donnée de texture non valide !\n");
-                texture->value = 1;
+		texture->value = 1;
 		free_data(texture);
 	}
 }
@@ -77,7 +77,8 @@ void	draw_texture_line(t_data *texture, t_ray *ray, int x)
 		if (data.tex_y < 0)
 			data.tex_y = 0;
 		data.tex_pos += data.step;
-		data.offset = data.tex_y * data.line_length + data.tex_x * (data.bpp / 8);
+		data.offset = data.tex_y * data.line_length;
+		data.offset += data.tex_x * (data.bpp / 8);
 		if (data.tex_x < 0 || data.tex_x >= data.tex_width || data.tex_y < 0
 			|| data.tex_y >= data.tex_height)
 		{
