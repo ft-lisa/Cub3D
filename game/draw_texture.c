@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:39:03 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 16:12:37 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:26:23 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	init_texture_line(t_data *texture, t_ray *ray, t_tex *data)
 {
 	if (ray->side == 0 && texture->x < ray->x)
 	{
-		data->tex = texture->west;
-		data->tex_width = texture->widthwest;
-		data->tex_height = texture->heightwest;
-	}
-	else if (ray->side == 0)
-	{
 		data->tex = texture->east;
 		data->tex_width = texture->widtheast;
 		data->tex_height = texture->heighteast;
+	}
+	else if (ray->side == 0)
+	{
+		data->tex = texture->west;
+		data->tex_width = texture->widthwest;
+		data->tex_height = texture->heightwest;
 	}
 	if (ray->side == 1 && texture->y < ray->y)
 	{

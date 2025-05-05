@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:03:06 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 11:03:07 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/04 09:46:10 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	check_up_down(int old_size, int size_line, char *map, int i)
 		return (ERROR);
 	if (i + size_line > (int)ft_strlen(map))
 		return (ERROR);
-	if (map[i - old_size] == ' ' || map[i - old_size] == '\n')
+	if (map[i - old_size] == ' ' || map[i - old_size] == '\n' || map[i - old_size] == '\0')
 		return (ERROR);
-	if (map[size_line + i] == ' ' || map[size_line + i] == '\n')
+	if (map[size_line + i] == ' ' || map[size_line + i] == '\n' || map[size_line + i] == '\0')
 		return (ERROR);
 	return (GOOD);
 }

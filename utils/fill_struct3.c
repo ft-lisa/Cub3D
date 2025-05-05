@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:47:30 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 15:50:18 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:40:20 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ void	fill_color(char *line, t_data *texture, int floor, int red)
 	{
 		line++;
 		line = pass_space(line);
-		red = atoi(line);
+		red = ft_atoi(line);
 		while (*line != ',')
 			line++;
 		line++;
-		green = atoi(line);
+		green = ft_atoi(line);
 		while (*line != ',')
 			line++;
 		line++;
-		blue = atoi(line);
+		blue = ft_atoi(line);
 	}
 	if (floor == 1)
 		texture->color_floor = (red << 16) | (green << 8) | blue;

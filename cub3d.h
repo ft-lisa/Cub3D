@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:41:53 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/02 16:01:59 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:41:02 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 int			len_line(char *map, int i);
 int			where_in_line(char *map, int i);
 char		**ft_split(char const *s, char c);
+int			ft_atoi(const char *theString);
 
 /* utils_draw */
 
