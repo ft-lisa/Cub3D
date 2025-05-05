@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/05 13:05:34 by lismarti          #+#    #+#              #
+#    Updated: 2025/05/05 13:05:35 by lismarti         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = cub3D
 
 CC = cc
@@ -39,7 +51,7 @@ RED	= \033[0;31m
 COUNTER_FILE = .counter_makefile
 
 
-all: reset_counter $(NAME)
+all: mlx reset_counter $(NAME)
 	@if [ ! -f .built ]; then \
 		echo "$(NAME): everything is already up to date."; \
 	fi
@@ -66,10 +78,12 @@ $(NAME): $(OBJS)
 
 clean:
 	@rm -rf $(O_DIR) $(COUNTER_FILE) .built
+	@make -C ./minilibx-linux clean
 	@echo "$(NAME): ${RED}${O_DIR}${RESET} has been deleted."
 
 fclean:
 	@rm -rf $(O_DIR) $(NAME) $(COUNTER_FILE) .built
+	@make -C ./minilibx-linux clean
 	@echo "$(NAME): ${RED}${O_DIR}${RESET} and ${RED}${NAME}${RESET} have been deleted."
 
 re: fclean all
