@@ -6,7 +6,7 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:03:06 by lismarti          #+#    #+#             */
-/*   Updated: 2025/05/04 09:46:10 by lismarti         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:29:49 by lismarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int	check_up_down(int old_size, int size_line, char *map, int i)
 		return (ERROR);
 	if (i + size_line > (int)ft_strlen(map))
 		return (ERROR);
-	if (map[i - old_size] == ' ' || map[i - old_size] == '\n' || map[i - old_size] == '\0')
+	if (map[i - old_size] == ' ' || map[i - old_size] == '\n' || map[i
+			- old_size] == '\0')
 		return (ERROR);
-	if (map[size_line + i] == ' ' || map[size_line + i] == '\n' || map[size_line + i] == '\0')
+	if (map[size_line + i] == ' ' || map[size_line + i] == '\n' || map[size_line
+			+ i] == '\0')
 		return (ERROR);
 	return (GOOD);
 }
@@ -44,13 +46,6 @@ int	check_wall(char *map, int i)
 		if (map[i] == '0' || map[i] == 'N' || map[i] == 'S' || map[i] == 'W'
 			|| map[i] == 'E')
 		{
-			if (i == 0)
-				return (printf(ERR_WALL), ERROR);
-			if (map[i + 1] == ' ' || map[i - 1] == ' ' || map[i + 1] == '\n'
-				|| map[i - 1] == '\n')
-				return (printf(ERR_WALL), ERROR);
-			if (check_up_down(old_size + 1, size_line + 1, map, i) == ERROR)
-				return (printf(ERR_WALL), ERROR);
 		}
 		i++;
 	}
