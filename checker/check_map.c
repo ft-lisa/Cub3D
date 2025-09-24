@@ -6,7 +6,11 @@
 /*   By: lismarti <lismarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 11:03:06 by lismarti          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2025/05/07 13:29:49 by lismarti         ###   ########.fr       */
+=======
 /*   Updated: 2025/05/07 13:30:33 by lismarti         ###   ########.fr       */
+>>>>>>> fun
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +25,11 @@ int	check_up_down(int old_size, int size_line, char *map, int i)
 		return (ERROR);
 	if (i + size_line > (int)ft_strlen(map))
 		return (ERROR);
-	if (map[i - old_size] == ' ' || map[i - old_size] == '\n' || map[i - old_size] == '\0')
+	if (map[i - old_size] == ' ' || map[i - old_size] == '\n' || map[i
+			- old_size] == '\0')
 		return (ERROR);
-	if (map[size_line + i] == ' ' || map[size_line + i] == '\n' || map[size_line + i] == '\0')
+	if (map[size_line + i] == ' ' || map[size_line + i] == '\n' || map[size_line
+			+ i] == '\0')
 		return (ERROR);
 	return (GOOD);
 }
@@ -53,7 +59,6 @@ int	check_wall(char *map, int i)
 				return (printf(ERR_WALL), ERROR);
 			i++;
 		}
-		i++;
 	}
 	return (GOOD);
 }
